@@ -14,6 +14,19 @@
     <string name="alarm">Alarma</string>
     <string name="temperature_control">Control de temperatura</string>
     <string name="my_profile">Mi perfil</string>
+    
+    <!-- Activities tops -->
+    <string name="illumination_cap">ILUMINACIÓN</string>
+    <string name="doors_and_windows_cap">PUERTAS Y VENTANTAS</string>
+    <string name="movement_detector_cap">DETECTOR DE MOVIMIENTO</string>
+    <string name="alarm_cap">ALARMA</string>
+    <string name="temperature_control_cap">CONTROL DE TEMPERATURA</string>
+    <string name="my_profile_cap">MI PERFIL</string>
 
+    <!-- Titles -->
+    <string name="sections">Secciones: </string>
+    <string name="alarm_devices">Dispositivos con alarma: </string>
+    <string name="windows">Ventanas</string>
+    <string name="movement_detectors">Detectores de movimiento</string>
 
 </resources>
