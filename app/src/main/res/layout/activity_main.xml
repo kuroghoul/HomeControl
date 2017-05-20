@@ -10,8 +10,6 @@
     android:paddingRight="16dp"
     tools:context="com.fiuady.homecontrol.MainActivity">
 
-    <!-- /////////////////////////////////////// -->
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +18,7 @@
         android:layout_centerInParent="true">
 
         <ImageButton
-            android:id="@+id/ilumination"
+            android:id="@+id/illumination"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:background="@mipmap/bombilla"
@@ -28,7 +26,7 @@
             style="@android:style/Widget.ImageButton"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="50dp"
-            android:layout_below="@id/text_ilumination"/>
+            android:layout_below="@id/text_illumination"/>
 
         <ImageButton
             android:id="@+id/doors_and_windows"
@@ -38,7 +36,7 @@
             tools:ignore="ContentDescription"
             style="@android:style/Widget.ImageButton"
             android:layout_marginBottom="50dp"
-            android:layout_toEndOf="@id/ilumination"
+            android:layout_toEndOf="@+id/text_illumination"
             android:layout_below="@id/text_doors_and_windows"/>
 
         <ImageButton
@@ -50,7 +48,7 @@
             style="@android:style/Widget.ImageButton"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="50dp"
-            android:layout_below="@id/ilumination"/>
+            android:layout_below="@id/illumination"/>
 
         <ImageButton
             android:id="@+id/alarm"
@@ -61,8 +59,7 @@
             style="@android:style/Widget.ImageButton"
             android:layout_marginBottom="50dp"
             android:layout_below="@id/doors_and_windows"
-            android:layout_toEndOf="@id/movement_detector"
-            android:layout_alignTop="@id/movement_detector"/>
+            android:layout_toEndOf="@id/movement_detector"/>
 
         <ImageButton
             android:id="@+id/temperature_control"
@@ -83,19 +80,17 @@
             tools:ignore="ContentDescription"
             style="@android:style/Widget.ImageButton"
             android:layout_marginBottom="50dp"
-            android:layout_below="@id/movement_detector"
+            android:layout_below="@id/alarm"
             android:layout_toEndOf="@id/temperature_control"/>
 
-        <!-- /////////////////////////////////////////// -->
 
         <TextView
-            android:id="@+id/text_ilumination"
+            android:id="@+id/text_illumination"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="@string/ilumination"
+            android:text="@string/illumination"
             android:gravity="center"
-            android:layout_alignStart="@id/ilumination"
             android:layout_marginTop="50dp"/>
 
         <TextView
@@ -105,8 +100,8 @@
             android:textSize="18sp"
             android:text="@string/doors_and_windows"
             android:gravity="center"
-            android:layout_alignStart="@id/doors_and_windows"
-            android:layout_marginTop="50dp"/>
+            android:layout_alignBottom="@id/text_illumination"
+            android:layout_toEndOf="@id/text_illumination"/>
 
         <TextView
             android:id="@+id/text_movement_detector"
