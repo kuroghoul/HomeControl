@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">HomeControl</string>
+
+    <!-- Login -->
+    <string name="user">Usuario</string>
+    <string name="password">Constraseña</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="sign_up">Registrarse</string>
+    
+    <!-- Main -->
+    <string name="ilumination">Iluminación</string>
+    <string name="doors_and_windows">Puertas y ventantas</string>
+    <string name="movement_detector">Detector de movimiento</string>
+    <string name="alarm">Alarma</string>
+    <string name="temperature_control">Control de temperatura</string>
+    <string name="my_profile">Mi perfil</string>
+
+
 </resources>
