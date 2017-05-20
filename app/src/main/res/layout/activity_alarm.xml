@@ -35,9 +35,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:text="@string/alarm_devices"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,8 +50,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/alarm_windows_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"/>
+        android:layout_height="match_parent"
+        android:layout_marginStart="50dp"
+        android:layout_weight="0.5"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,7 +65,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/alarm_detectors_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp" />
+        android:layout_height="match_parent"
+        android:layout_marginStart="50dp"
+        android:layout_weight="0.5"/>
 
 </LinearLayout>

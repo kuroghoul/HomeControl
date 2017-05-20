@@ -28,5 +28,10 @@
     <string name="alarm_devices">Dispositivos con alarma: </string>
     <string name="windows">Ventanas</string>
     <string name="movement_detectors">Detectores de movimiento</string>
+    <string name="name">Nombre: </string>
+    <string name="preferences">Preferencias: </string>
 
+    <!-- Buttons -->
+    <string name="change_user_password">Cambiar contraseña de usuario</string>
+    <string name="change_door_password">Cambiar contraseña de puerta principal</string>
 </resources>
