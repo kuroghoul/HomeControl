@@ -18,7 +18,7 @@
     <TextView
         android:id="@+id/txtString"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:layout_alignLeft="@+id/testView1"
         android:layout_alignParentBottom="true"
 
@@ -39,6 +39,8 @@
         android:layout_alignBottom="@+id/buttonOn"
         android:layout_alignParentRight="true"
         android:text="LED OFF" />
+
+
 
     <TextView
         android:id="@+id/sensorView1"
@@ -75,5 +77,10 @@
         android:layout_marginTop="196dp"
         android:text="Sensor 0 Voltage = ????"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+<SeekBar
+    android:id="@+id/newseekbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:max="255"
+    android:layout_below="@+id/sensorView3"/>
 </RelativeLayout>

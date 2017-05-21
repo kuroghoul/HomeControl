@@ -95,8 +95,9 @@ public class LoginFragment extends Fragment {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                NewBt newBt = new NewBt();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, connectFragment).addToBackStack(null).commit();
+                ft.replace(R.id.fragment_container, newBt).addToBackStack(null).commit();
             }
         });
 
@@ -104,6 +105,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 testFragment testfragmento = new testFragment();
+
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.fragment_container, testfragmento);
                 ft.addToBackStack(null);

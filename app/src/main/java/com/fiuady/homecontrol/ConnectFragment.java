@@ -106,7 +106,7 @@ public class ConnectFragment extends Fragment{
             String address = info.substring(info.length() - 17);
 
 
-            ((MainActivity)getActivity()).atConnection(address);
+            //((MainActivity)getActivity()).atConnection(address);
 
             //testFragment testFragmento = new testFragment();
             //Bundle bundle = new Bundle();
