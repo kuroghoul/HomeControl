@@ -30,8 +30,13 @@
     <string name="movement_detectors">Detectores de movimiento</string>
     <string name="name">Nombre: </string>
     <string name="preferences">Preferencias: </string>
+    <string name="intensity">Intensidad: </string>
+    <string name="automatic_regulation">Regulación automática: </string>
+    <string name="color">Color: </string>
 
     <!-- Buttons -->
     <string name="change_user_password">Cambiar contraseña de usuario</string>
     <string name="change_door_password">Cambiar contraseña de puerta principal</string>
+
+
 </resources>

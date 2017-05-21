@@ -17,6 +17,15 @@
         android:paddingRight="16dp"
         android:layout_centerInParent="true">
 
+        <TextView
+            android:id="@+id/text_illumination"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/illumination"
+            android:gravity="center"
+            android:layout_marginTop="50dp"/>
+
         <ImageButton
             android:id="@+id/illumination"
             android:layout_width="90dp"
@@ -28,6 +37,16 @@
             android:layout_marginBottom="50dp"
             android:layout_below="@id/text_illumination"/>
 
+        <TextView
+            android:id="@+id/text_doors_and_windows"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/doors_and_windows"
+            android:gravity="center"
+            android:layout_alignBottom="@id/text_illumination"
+            android:layout_toEndOf="@id/text_illumination"/>
+
         <ImageButton
             android:id="@+id/doors_and_windows"
             android:layout_width="90dp"
@@ -36,7 +55,7 @@
             tools:ignore="ContentDescription"
             style="@android:style/Widget.ImageButton"
             android:layout_marginBottom="50dp"
-            android:layout_toEndOf="@+id/text_illumination"
+            android:layout_toEndOf="@+id/illumination"
             android:layout_below="@id/text_doors_and_windows"/>
 
         <ImageButton
@@ -82,26 +101,6 @@
             android:layout_marginBottom="50dp"
             android:layout_below="@id/alarm"
             android:layout_toEndOf="@id/temperature_control"/>
-
-
-        <TextView
-            android:id="@+id/text_illumination"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="@string/illumination"
-            android:gravity="center"
-            android:layout_marginTop="50dp"/>
-
-        <TextView
-            android:id="@+id/text_doors_and_windows"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="@string/doors_and_windows"
-            android:gravity="center"
-            android:layout_alignBottom="@id/text_illumination"
-            android:layout_toEndOf="@id/text_illumination"/>
 
         <TextView
             android:id="@+id/text_movement_detector"

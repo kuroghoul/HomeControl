@@ -46,10 +46,11 @@
             android:layout_gravity="bottom"/>
 
         <TextView
+            android:id="@+id/user_name_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="...nombre del usuario..."
+            android:text="...user name..."
             android:layout_marginStart="20dp"/>
 
     </LinearLayout>
@@ -75,6 +76,7 @@
         android:layout_marginTop="10dp">
 
         <Button
+            android:id="@+id/change_user_password_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -83,6 +85,7 @@
             android:layout_weight="0.5"/>
 
         <Button
+            android:id="@+id/change_door_password_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
