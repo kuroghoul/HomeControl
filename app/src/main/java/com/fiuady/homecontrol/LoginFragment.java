@@ -74,6 +74,7 @@ public class LoginFragment extends Fragment {
         passwordtxt = (EditText)view.findViewById(R.id.password_edittext);
 
 
+
         signinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,11 +90,18 @@ public class LoginFragment extends Fragment {
                         signinAttempt.setText("Contraseña incorrecta");
                         break;
                     case Success:
+
+                        mainActivity.setCurrentUser(inventory.searchUserByName(username));
+                        mainActivity.setCurrentUserProfile(inventory.getActiveProfile(mainActivity.getCurrentUser().getId()));
+
+                        usertxt.setText("");
+                        passwordtxt.setText("");
+
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         signinAttempt.setText("Inicio de sesión exitoso");
                         mainActivity.hideKeyboard(getActivity(),v);
 
-                        if(mainActivity.getConnectedSocket()==null)
+                        if(mainActivity.getConnectedSocket()!=null)
                         {
                             NewBt newBt = new NewBt();
                             ft.replace(R.id.fragment_container, newBt, "loginFragment_TAG").addToBackStack("login_newBt_TAG").commit();

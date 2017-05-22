@@ -5,8 +5,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="5dp"
     android:paddingBottom="5dp"
-    android:paddingStart="5dp">
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -218,10 +220,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sensor Ambiental:" />
                 <CheckBox
+                    android:visibility="gone"
                     android:id="@+id/illumination_checkbox3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -320,10 +324,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sensor Ambiental:" />
                 <CheckBox
+                    android:visibility="gone"
                     android:id="@+id/illumination_checkbox4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -335,6 +341,7 @@
 
 
     <Button
+        android:id="@+id/illumination_save_button"
         android:text="Guardar cambios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

@@ -13,7 +13,7 @@
 
     <!-- Main -->
     <string name="illumination">Iluminación</string>
-    <string name="doors_and_windows">Puertas y ventantas</string>
+    <string name="doors_and_windows">Puertas</string>
     <string name="movement_detector">Detector de movimiento</string>
     <string name="alarm">Alarma</string>
     <string name="temperature_control">Control de temperatura</string>

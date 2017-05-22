@@ -76,9 +76,7 @@ public class testFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        if (container != null) {
-            container.removeAllViews();
-        }
+
         return inflater.inflate(R.layout.fragment_test,container,false );
     }
 

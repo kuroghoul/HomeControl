@@ -52,7 +52,9 @@ public class MainFragment extends Fragment {
         doorsWindowsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                DoorsFragment doorsFragment = new DoorsFragment();
+                ft.replace(R.id.fragment_container, doorsFragment).addToBackStack(null).commit();
             }
         });
         alarmBtn.setOnClickListener(new View.OnClickListener() {

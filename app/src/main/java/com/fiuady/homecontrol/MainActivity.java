@@ -35,6 +35,8 @@ import java.util.UUID;
 
 
 import com.fiuady.homecontrol.db.Inventory;
+import com.fiuady.homecontrol.db.User;
+import com.fiuady.homecontrol.db.UserProfile;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,9 +44,15 @@ public class MainActivity extends AppCompatActivity {
     private static final UUID SERIAL_PORT_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     private BluetoothSocket connectedSocket;
 
+    protected User currentUser;
+    protected UserProfile currentUserProfile;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        currentUser = null;
+        currentUserProfile = null;
         setContentView(R.layout.activity_main);
         if (findViewById(R.id.fragment_container)!=null){
             if(savedInstanceState!=null)
@@ -58,11 +66,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
 
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
 
+    public UserProfile getCurrentUserProfile() {
+        return currentUserProfile;
+    }
 
-
-
+    public void setCurrentUserProfile(UserProfile currentUserProfile) {
+        this.currentUserProfile = currentUserProfile;
+    }
 
     @Override
     public void onPause() {
