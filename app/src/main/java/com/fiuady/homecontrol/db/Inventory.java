@@ -14,6 +14,7 @@ public class Inventory {
     private SQLiteDatabase db;
 
     public enum LoginResponse {Success, InvalidUser, WrongPassword}
+    public enum RegisterResponse {Success, DuplicatedUser}
 
     public Inventory(Context context){
 
@@ -46,7 +47,20 @@ public class Inventory {
 
 
 
+    public int getNewIdFrom(String Table)
+    {
 
+        Cursor cursor = db.query(Table, new String[]{"MAX(id) AS newId"}, null, null, null, null, null);
+        if (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("newId"));
+            cursor.close();
+            return (id + 1);
+        }
+        else
+        {
+            return -1;
+        }
+    }
 
 
 
@@ -61,6 +75,7 @@ public class Inventory {
         if(cursor.moveToNext())
         {
             User user = cursor.getUser();
+            cursor.close();
             if (password.equals(user.getPassword()))
             {
                 return LoginResponse.Success;
@@ -75,9 +90,62 @@ public class Inventory {
         {
             return LoginResponse.InvalidUser;
         }
-
-
     }
 
+    public User searchUserByName (String username)
+    {
+        UserCursor cursor = new UserCursor(db.query(DBSchema.UsersTable.NAME,
+                null,
+                DBSchema.UsersTable.Columns.USER + "= ?",
+                new String[]{username},
+                null, null, null));
+        if(cursor.moveToNext())
+        {
+            User user = cursor.getUser();
+            cursor.close();
+            return user;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public RegisterResponse attemptRegister (String username, String password, String nip)
+    {
+        if(searchUserByName(username)!=null)
+        {
+            return RegisterResponse.DuplicatedUser;
+        }
+        else
+        {
+            int id = getNewIdFrom(DBSchema.UsersTable.NAME);
+            db.execSQL("INSERT INTO users VALUES ("+String.valueOf(id)+", '"+username+"', '"+password+"', '"+nip+"');");
+            generateDefaultUserProfile(id);
+            return RegisterResponse.Success;
+        }
+    }
+
+    public void generateDefaultUserProfile (int userid)
+    {
+        int newId = getNewIdFrom(DBSchema.UserProfilesTable.NAME);
+        db.execSQL(
+                "INSERT INTO user_profiles VALUES ("+String.valueOf(newId)+","+String.valueOf(userid)+",'Default',1);\n" +
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",0, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",1, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",2, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",3, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",4, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",5, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",6, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",7, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",8, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",9, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",10, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",11, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",12, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",13, 0, 0, 0, 0, 0);\n"+
+                "INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",14, 0, 0, 0, 0, 0);\n");
+    }
 
 }

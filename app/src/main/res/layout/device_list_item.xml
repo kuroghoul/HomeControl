@@ -16,14 +16,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre:"
-            android:textSize="22sp"
+            android:textSize="15sp"
             android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/device_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="15sp"
             android:textStyle="italic"
             tools:text="Aquí va el nombre..."/>
     </LinearLayout>
@@ -37,14 +37,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dirección MAC:"
-            android:textSize="25sp"
+            android:textSize="15sp"
             android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/device_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="15sp"
             android:textStyle="italic"
             tools:text="Aquí va la dirección..."/>
     </LinearLayout>

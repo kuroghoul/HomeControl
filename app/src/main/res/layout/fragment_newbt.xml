@@ -11,25 +11,31 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="right">
-
-        <Button
-            android:id="@+id/paired_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Paired"/>
-
         <Button
             android:id="@+id/discover_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Escanear"/>
         <Button
+            android:id="@+id/paired_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paired"/>
+
+
+        <Button
             android:id="@+id/disconnect_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Desconectar"/>
-    </LinearLayout>
 
+    </LinearLayout>
+    <Button
+        android:layout_gravity="right"
+        android:id="@+id/ready_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Listo"/>
     <TextView
         android:id="@+id/state_text_label"
         android:layout_width="match_parent"

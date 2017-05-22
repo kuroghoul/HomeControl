@@ -1,6 +1,7 @@
 package com.fiuady.homecontrol;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -49,10 +50,14 @@ public class NewBt extends Fragment{
     Button pairedButton;
     Button discoverButton;
     Button disconnectButton;
+    Button readyButton;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        if (container != null) {
+            container.removeAllViews();
+        }
         return inflater.inflate(R.layout.fragment_newbt, container, false);
     }
 
@@ -99,6 +104,7 @@ public class NewBt extends Fragment{
         pairedButton = (Button)view.findViewById(R.id.paired_button);
         discoverButton = (Button)view.findViewById(R.id.discover_button);
         disconnectButton = (Button)view.findViewById(R.id.disconnect_button);
+        readyButton = (Button)view.findViewById(R.id.ready_button);
         final BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
          pairedButton.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -170,6 +176,17 @@ public class NewBt extends Fragment{
                  }
              }
          });
+        readyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (connectedSocket!=null)
+                {
+                    testFragment mainFragment = new testFragment();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.fragment_container, mainFragment, "mainFragment").addToBackStack(null).commit();
+                }
+            }
+        });
 
 // Register for broadcasts when bluetooth device state changes
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
@@ -189,29 +206,7 @@ public class NewBt extends Fragment{
 
 
 
-    // ************************************************
-    // BtBackgroundTask
-    // ************************************************
 
-    private class BtBackgroundTask extends AsyncTask<BufferedReader, String, Void> {
-        @Override
-        protected Void doInBackground(BufferedReader... params) {
-            try {
-                while (!isCancelled()) {
-                    publishProgress(params[0].readLine());
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(String... values) {
-            //appendMessageText("[Recibido] " + values[0]);
-        }
-    }
 
     // ************************************************
     // ViewHolder for RecyclerView
@@ -243,9 +238,9 @@ public class NewBt extends Fragment{
                                     {
 
                                             connectedSocket = mainactivity.getConnectedSocket();
-                                            //BufferedReader br = new BufferedReader(new InputStreamReader(connectedSocket.getInputStream()));
-                                            //new BtBackgroundTask().execute(br);
                                             appendStateText("[Estado] Conexión exitosa.");
+
+
 
                                     }
                                     else
