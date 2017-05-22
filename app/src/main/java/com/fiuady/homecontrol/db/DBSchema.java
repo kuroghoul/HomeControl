@@ -39,7 +39,7 @@ public final class DBSchema {
             public static final String STATUS2 ="status2";
             public static final String PWM1 ="pwm1";
             public static final String PWM2 ="pwm2";
-            public static final String PWM3 ="pwm2";
+            public static final String PWM3 ="pwm3";
         }
     }
 

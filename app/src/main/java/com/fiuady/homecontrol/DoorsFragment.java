@@ -69,8 +69,8 @@ public class DoorsFragment extends Fragment {
         profile=mainActivity.getCurrentUserProfile();
         inventory = new Inventory(mainActivity);
 
-        doorMain = inventory.getProfileDevice(profile.getId(), user.getId());
-        door2 = inventory.getProfileDevice(profile.getId(), user.getId());
+        doorMain = inventory.getProfileDevice(profile.getId(), 2);
+        door2 = inventory.getProfileDevice(profile.getId(), 3);
 
 
 
@@ -95,6 +95,15 @@ public class DoorsFragment extends Fragment {
         door2Btn = (ImageButton)view.findViewById(R.id.door_2_btn);
         door2Txt = (TextView)view.findViewById(R.id.door_2_txt);
 
+        if(doorMain.getStatus1())
+        {
+            doorMainBtn.setBackgroundResource(R.drawable.unlocked);
+        }
+        if(door2.getStatus1())
+        {
+            door2Btn.setBackgroundResource(R.drawable.unlocked);
+        }
+
 
 
         doorMainBtn.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +121,7 @@ public class DoorsFragment extends Fragment {
                     }
                     else
                     {
+                        nipET.requestFocus();
                         Toast.makeText(mainActivity, "NIP incorrecto", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -121,6 +131,27 @@ public class DoorsFragment extends Fragment {
                     doorMain.setStatus1(false);
 
                 }
+
+                inventory.saveProfileDevice(doorMain);
+                //O QUIZAS MANDAR EL OBJETO PUERTA Y COMO LEERÁ FALSO, IGUAL NO SE ABRIRÁ, PARA NO ESCRIBIR 2 O MÁS FUNCIONES DISTINTAS
+
+            }
+        });
+
+        door2Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(door2.getStatus1())
+                {
+                    door2.setStatus1(false);
+                    door2Btn.setBackgroundResource(R.drawable.locked);
+                }
+                else
+                {
+                    door2.setStatus1(true);
+                    door2Btn.setBackgroundResource(R.drawable.unlocked);
+                }
+                inventory.saveProfileDevice(door2);
             }
         });
 
@@ -178,4 +209,9 @@ public class DoorsFragment extends Fragment {
     }
 
 
+    private void saveDevices ()
+    {
+        inventory.saveProfileDevice(doorMain);
+        inventory.saveProfileDevice(door2);
+    }
 }

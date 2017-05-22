@@ -23,6 +23,10 @@ public class ProfileDevice {
         this.pwm3 = pwm3;
     }
 
+    public int getDevice_id() {
+        return device_id;
+    }
+
     public int getId() {
         return id;
     }

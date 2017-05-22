@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 /**
  * Created by Kuro on 20/05/2017.
  */
@@ -225,4 +227,25 @@ public class Inventory {
             return null;
         }
     }
+
+    public void saveProfileDevice(ProfileDevice profileDevice)
+    {
+        Cursor cursor = db.rawQuery(
+
+            "UPDATE profile_devices\n" +
+                    "SET status1="+(profileDevice.getStatus1()?"1":"0")+", status2="+(profileDevice.getStatus2()?"1":"0")+
+                    ", pwm1="+profileDevice.getPwm1()+", pwm2="+profileDevice.getPwm2()+", pwm3="+profileDevice.getPwm3()+"\n" +
+                    "where id="+String.valueOf(profileDevice.getId())+ " and device_id=" + String.valueOf(profileDevice.getDevice_id()), null
+
+        );
+        cursor.moveToNext();
+        cursor.close();
+    }
+
+    public ArrayList<UserProfile> getAllUserProfiles (int userId)
+    {
+
+    }
+
+
 }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
@@ -136,13 +137,16 @@ public class IlluminationFragment extends Fragment{
 
         color2 = view.findViewById(R.id.illumination_color4);
         rgb2SBR = (SeekBar)view.findViewById(R.id.illumination_R4);
-        rgb2SBR.setProgress(rgb1.getPwm1());
+        rgb2SBR.setProgress(rgb2.getPwm1());
 
         rgb2SBG = (SeekBar)view.findViewById(R.id.illumination_G4);
-        rgb2SBG.setProgress(rgb1.getPwm2());
+        rgb2SBG.setProgress(rgb2.getPwm2());
 
         rgb2SBB = (SeekBar)view.findViewById(R.id.illumination_B4);
-        rgb2SBB.setProgress(rgb1.getPwm3());
+        rgb2SBB.setProgress(rgb2.getPwm3());
+
+        color1.setBackgroundColor(Color.argb(255, rgb1SBR.getProgress(), rgb1SBG.getProgress(), rgb1SBB.getProgress()));
+        color2.setBackgroundColor(Color.argb(255, rgb2SBR.getProgress(), rgb2SBG.getProgress(), rgb2SBB.getProgress()));
 
         SeekBar.OnSeekBarChangeListener colorListener1 = new SeekBar.OnSeekBarChangeListener()
         {
@@ -199,17 +203,71 @@ public class IlluminationFragment extends Fragment{
 
         dimm1chk = (CheckBox)view.findViewById(R.id.illumination_checkbox1);
         dimm2chk = (CheckBox)view.findViewById(R.id.illumination_checkbox2);
-        rgb1chk = (CheckBox)view.findViewById(R.id.illumination_checkbox3);
-        rgb2chk = (CheckBox)view.findViewById(R.id.illumination_checkbox4);
+        //rgb1chk = (CheckBox)view.findViewById(R.id.illumination_checkbox3);
+        //rgb2chk = (CheckBox)view.findViewById(R.id.illumination_checkbox4);
+
+        dimm1chk.setChecked(dimm1.getStatus2());
+        dimm2chk.setChecked(dimm2.getStatus2());
 
 
 
+        dimm1sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                dimm1.setStatus1(isChecked);
+            }
+        });
+        dimm2sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                dimm2.setStatus1(isChecked);
+            }
+        });
+        rgb1sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                rgb1.setStatus1(isChecked);
+            }
+        });
+        rgb2sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                rgb2.setStatus1(isChecked);
+            }
+        });
+
+
+        dimm1chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                dimm1.setStatus2(isChecked);
+            }
+        });
+        dimm2chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                dimm2.setStatus2(isChecked);
+            }
+        });
+        //rgb1chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        //    @Override
+        //    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        //        rgb1.setStatus2(isChecked);
+        //    }
+        //});
+        //rgb2chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        //    @Override
+        //    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        //        rgb2.setStatus2(isChecked);
+        //    }
+        //});
 
         saveBtn = (Button)view.findViewById(R.id.illumination_save_button);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveIlluminationChanges();
+                getFragmentManager().popBackStackImmediate();
             }
         });
 
@@ -240,7 +298,10 @@ public class IlluminationFragment extends Fragment{
         rgb2.setPwm3(rgb2SBB.getProgress());
         rgb2.setStatus1(rgb2sw.isChecked());
 
-
+        inventory.saveProfileDevice(dimm1);
+        inventory.saveProfileDevice(dimm2);
+        inventory.saveProfileDevice(rgb1);
+        inventory.saveProfileDevice(rgb2);
         //AQUI PRETENDO ENVIAR LA INFORMACIÓN DE LOS DISPOSITIVOS AL ARDUINO---------------------
         if ((btSocket != null) && (btSocket.isConnected())) {
             jObj = new JSONObject();

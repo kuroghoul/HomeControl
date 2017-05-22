@@ -42,7 +42,7 @@
                     android:layout_height="110dp"
                     android:layout_width="110dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/bombilla"
+                    android:src="@drawable/illumination"
                     android:background="@android:color/transparent"
                     android:padding="5dp"/>
                 <TextView
@@ -61,7 +61,7 @@
                     android:id="@+id/doors_and_windows_btn"
                     android:layout_height="110dp"
                     android:layout_width="110dp"
-                    android:src="@mipmap/llave"
+                    android:src="@drawable/doors"
                     android:layout_alignParentBottom="true"
                     android:scaleType="fitCenter"
                     android:background="@android:color/transparent"
@@ -91,7 +91,7 @@
                     android:id="@+id/movement_detector_btn"
                     android:layout_height="110dp"
                     android:layout_width="110dp"
-                    android:src="@mipmap/antifaz"
+                    android:src="@drawable/alarm"
                     android:scaleType="fitXY"
                     android:background="@android:color/transparent"
                     android:padding="5dp"/>
@@ -110,7 +110,7 @@
                     android:id="@+id/alarm_btn"
                     android:layout_height="110dp"
                     android:layout_width="110dp"
-                    android:src="@mipmap/alarma"
+                    android:src="@drawable/movement"
                     android:background="@android:color/transparent"
                     android:scaleType="fitXY"
                     android:padding="5dp"/>
@@ -138,7 +138,7 @@
                     android:id="@+id/temperature_control_btn"
                     android:layout_height="110dp"
                     android:layout_width="110dp"
-                    android:src="@mipmap/termometro"
+                    android:src="@drawable/temperature"
                     android:background="@android:color/transparent"
                     android:scaleType="fitXY"
                     android:padding="5dp"/>
@@ -156,7 +156,7 @@
                     android:id="@+id/my_profile_btn"
                     android:layout_height="110dp"
                     android:layout_width="110dp"
-                    android:src="@mipmap/perfil"
+                    android:src="@drawable/profile"
                     android:background="@android:color/transparent"
                     android:scaleType="fitXY"
                     android:padding="5dp"/>
