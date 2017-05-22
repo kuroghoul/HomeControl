@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_item_paired"
+        android:id="@+id/menu_item_connect"
         android:icon="@drawable/ic_paired_black_24dp"
         android:title="Paired"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="always"/>
 
-    <item
+    <!--item
         android:id="@+id/menu_item_discover"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="Discover"
@@ -19,5 +19,5 @@
         android:id="@+id/menu_item_disconnect"
         android:icon="@drawable/ic_bluetooth_disabled_black_24dp"
         android:title="Disconnect"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="ifRoom|withText"/-->
 </menu>

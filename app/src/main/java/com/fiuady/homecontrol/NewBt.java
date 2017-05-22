@@ -181,9 +181,7 @@ public class NewBt extends Fragment{
             public void onClick(View v) {
                 if (connectedSocket!=null)
                 {
-                    MainFragment mainFragment = new MainFragment();
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.fragment_container, mainFragment).addToBackStack(null).commit();
+                    getFragmentManager().popBackStackImmediate();
                 }
             }
         });

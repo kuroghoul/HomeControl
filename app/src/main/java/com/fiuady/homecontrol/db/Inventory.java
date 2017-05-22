@@ -242,10 +242,10 @@ public class Inventory {
         cursor.close();
     }
 
-    public ArrayList<UserProfile> getAllUserProfiles (int userId)
-    {
-
-    }
+    //public ArrayList<UserProfile> getAllUserProfiles (int userId)
+    //{
+//
+    //}
 
 
 }
