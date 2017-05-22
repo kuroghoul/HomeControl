@@ -5,4 +5,41 @@
     <string name="hello_world">Hello world!</string>
     <string name="none_paired">No devices have been paired</string>
 
+    <!-- Login -->
+    <string name="user">Usuario</string>
+    <string name="password">Constraseña</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="sign_up">Registrarse</string>
+
+    <!-- Main -->
+    <string name="illumination">Iluminación</string>
+    <string name="doors_and_windows">Puertas y ventantas</string>
+    <string name="movement_detector">Detector de movimiento</string>
+    <string name="alarm">Alarma</string>
+    <string name="temperature_control">Control de temperatura</string>
+    <string name="my_profile">Mi perfil</string>
+
+    <!-- Activities tops -->
+    <string name="illumination_cap">ILUMINACIÓN</string>
+    <string name="doors_and_windows_cap">PUERTAS Y VENTANTAS</string>
+    <string name="movement_detector_cap">DETECTOR DE MOVIMIENTO</string>
+    <string name="alarm_cap">ALARMA</string>
+    <string name="temperature_control_cap">CONTROL DE TEMPERATURA</string>
+    <string name="my_profile_cap">MI PERFIL</string>
+
+    <!-- Titles -->
+    <string name="sections">Secciones: </string>
+    <string name="alarm_devices">Dispositivos con alarma: </string>
+    <string name="windows">Ventanas</string>
+    <string name="movement_detectors">Detectores de movimiento</string>
+    <string name="name">Nombre: </string>
+    <string name="preferences">Preferencias: </string>
+    <string name="intensity">Intensidad: </string>
+    <string name="automatic_regulation">Regulación automática: </string>
+    <string name="color">Color: </string>
+
+    <!-- Buttons -->
+    <string name="change_user_password">Cambiar contraseña de usuario</string>
+    <string name="change_door_password">Cambiar contraseña de puerta principal</string>
+
 </resources>

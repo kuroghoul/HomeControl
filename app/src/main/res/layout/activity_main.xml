@@ -39,8 +39,8 @@
                 android:gravity="center">
                 <ImageButton
                     android:id="@+id/illumination"
-                    android:layout_height="125dp"
-                    android:layout_width="125dp"
+                    android:layout_height="110dp"
+                    android:layout_width="110dp"
                     android:scaleType="fitXY"
                     android:src="@mipmap/bombilla"
                     android:background="@android:color/transparent"
@@ -59,8 +59,8 @@
                 android:gravity="center">
                 <ImageButton
                     android:id="@+id/doors_and_windows"
-                    android:layout_height="125dp"
-                    android:layout_width="125dp"
+                    android:layout_height="110dp"
+                    android:layout_width="110dp"
                     android:src="@mipmap/llave"
                     android:layout_alignParentBottom="true"
                     android:scaleType="fitCenter"
@@ -89,8 +89,8 @@
                 android:gravity="center">
                 <ImageButton
                     android:id="@+id/movement_detector"
-                    android:layout_height="125dp"
-                    android:layout_width="125dp"
+                    android:layout_height="110dp"
+                    android:layout_width="110dp"
                     android:src="@mipmap/antifaz"
                     android:scaleType="fitXY"
                     android:background="@android:color/transparent"
@@ -108,8 +108,8 @@
                 android:gravity="center">
                 <ImageButton
                     android:id="@+id/alarm"
-                    android:layout_height="125dp"
-                    android:layout_width="125dp"
+                    android:layout_height="110dp"
+                    android:layout_width="110dp"
                     android:src="@mipmap/alarma"
                     android:background="@android:color/transparent"
                     android:scaleType="fitXY"
@@ -136,8 +136,8 @@
                 android:gravity="center">
                 <ImageButton
                     android:id="@+id/temperature_control"
-                    android:layout_height="125dp"
-                    android:layout_width="125dp"
+                    android:layout_height="110dp"
+                    android:layout_width="110dp"
                     android:src="@mipmap/termometro"
                     android:background="@android:color/transparent"
                     android:scaleType="fitXY"
@@ -145,7 +145,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@id/temperature_control"/>
+                    android:text="@string/temperature_control"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -154,8 +154,8 @@
                 android:gravity="center">
                 <ImageButton
                     android:id="@+id/my_profile"
-                    android:layout_height="125dp"
-                    android:layout_width="125dp"
+                    android:layout_height="110dp"
+                    android:layout_width="110dp"
                     android:src="@mipmap/perfil"
                     android:background="@android:color/transparent"
                     android:scaleType="fitXY"
@@ -163,7 +163,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@id/my_profile"/>
+                    android:text="@string/my_profile"/>
             </LinearLayout>
 
 
