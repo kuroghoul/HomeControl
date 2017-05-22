@@ -33,11 +33,11 @@ public class LoginFragment extends Fragment {
 
     private Inventory inventory;
 
-    //private MainFragment mainFragment;
+    private MainFragment mainFragment;
     private ConnectFragment connectFragment;
 
     private MainActivity mainActivity;
-    testFragment mainFragment;
+    //testFragment mainFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,8 @@ public class LoginFragment extends Fragment {
 
         mainActivity = (MainActivity)getActivity();
         inventory = new Inventory(getActivity());
-        //mainFragment = new MainFragment();
-        mainFragment = new testFragment();
+        mainFragment = new MainFragment();
+        //mainFragment = new testFragment();
         connectFragment = new ConnectFragment();
 
     }
