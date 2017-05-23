@@ -28,18 +28,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.UUID;
 
 
 
 
 import com.fiuady.homecontrol.db.Inventory;
+import com.fiuady.homecontrol.db.ProfileDevice;
 import com.fiuady.homecontrol.db.User;
 import com.fiuady.homecontrol.db.UserProfile;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,6 +56,15 @@ public class MainActivity extends AppCompatActivity {
 
     protected User currentUser;
     protected UserProfile currentUserProfile;
+    protected ArrayList<ProfileDevice> profileDevices;
+    protected Inventory inventory;
+    private boolean sendMessageFlag;
+    private JSONObject jObjIn;
+    private JSONObject jObjOut;
+
+    public ArrayList<ProfileDevice> getProfileDevices() {
+        return profileDevices;
+    }
 
 
     @Override
@@ -56,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         currentUser = null;
         currentUserProfile = null;
+        inventory = new Inventory(this);
         setContentView(R.layout.activity_main);
         if (findViewById(R.id.fragment_container)!=null){
             if(savedInstanceState!=null)
@@ -66,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
             getFragmentManager().beginTransaction().add(R.id.fragment_container, loginFragment).commit();
         }
+
     }
 
 
@@ -149,6 +167,18 @@ public class MainActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+    public void generateDevices()
+    {
+        if(currentUser!=null) {
+            profileDevices = inventory.getAllDeviceProfiles(currentUserProfile.getId());
+        }
+
+    }
+
+    public void sendJson()
+    {
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -174,4 +204,18 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+
+
+
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
+
 }

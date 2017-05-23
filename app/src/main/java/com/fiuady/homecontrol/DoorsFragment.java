@@ -19,6 +19,7 @@ import com.fiuady.homecontrol.db.ProfileDevice;
 import com.fiuady.homecontrol.db.User;
 import com.fiuady.homecontrol.db.UserProfile;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -28,6 +29,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 /**
  * Created by Kuro on 22/05/2017.
@@ -59,6 +61,7 @@ public class DoorsFragment extends Fragment {
     private TextView doorMainTxt;
     private TextView door2Txt;
 
+    ArrayList<ProfileDevice> devices;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,7 +75,12 @@ public class DoorsFragment extends Fragment {
         doorMain = inventory.getProfileDevice(profile.getId(), 2);
         door2 = inventory.getProfileDevice(profile.getId(), 3);
 
-
+        btSocket = mainActivity.getConnectedSocket();
+        if(btSocket!=null) {
+            btThread = new BtBackgroundTask(btSocket);
+            btThread.execute();
+        }
+        devices = mainActivity.getProfileDevices();
 
 
     }
@@ -141,19 +149,31 @@ public class DoorsFragment extends Fragment {
         door2Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(door2.getStatus1())
-                {
+                if (door2.getStatus1()) {
                     door2.setStatus1(false);
                     door2Btn.setBackgroundResource(R.drawable.locked);
-                }
-                else
-                {
+                } else {
                     door2.setStatus1(true);
                     door2Btn.setBackgroundResource(R.drawable.unlocked);
+
+                    if ((btSocket != null) && (btSocket.isConnected())) {
+                        jObj = new JSONObject();
+                        try {
+                            jObj.put("dimm1", devices.get(0).getPwm1());
+                            jObj.put("dimm2", devices.get(1).getPwm1());
+                            jObj.put("door1", devices.get(2).getPwm1());
+                            jObj.put("door2", devices.get(3).getPwm1());
+
+                        } catch (JSONException e) {
+                        }
+
+
+                    }
                 }
-                inventory.saveProfileDevice(door2);
-            }
-        });
+                    sendMessageFlag=true;
+                    inventory.saveProfileDevice(door2);
+                }
+            });
 
     }
 
@@ -213,5 +233,14 @@ public class DoorsFragment extends Fragment {
     {
         inventory.saveProfileDevice(doorMain);
         inventory.saveProfileDevice(door2);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(btThread!=null)
+        {
+            btThread.cancel(true);
+        }
     }
 }

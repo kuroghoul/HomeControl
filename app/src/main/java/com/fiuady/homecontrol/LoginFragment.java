@@ -100,8 +100,9 @@ public class LoginFragment extends Fragment {
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         signinAttempt.setText("Inicio de sesión exitoso");
                         mainActivity.hideKeyboard(getActivity(),v);
+                        mainActivity.generateDevices();
 
-                        if(mainActivity.getConnectedSocket()!=null)
+                        if(mainActivity.getConnectedSocket()==null)
                         {
                             NewBt newBt = new NewBt();
                             ft.replace(R.id.fragment_container, newBt, "loginFragment_TAG").addToBackStack("login_newBt_TAG").commit();

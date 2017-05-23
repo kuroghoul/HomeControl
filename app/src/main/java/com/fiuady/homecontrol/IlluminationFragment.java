@@ -267,6 +267,7 @@ public class IlluminationFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 saveIlluminationChanges();
+                sendMessageFlag=true;
                 getFragmentManager().popBackStackImmediate();
             }
         });
@@ -306,26 +307,25 @@ public class IlluminationFragment extends Fragment{
         if ((btSocket != null) && (btSocket.isConnected())) {
             jObj = new JSONObject();
             try {
-                jObj = new JSONObject();
-                //jObj.put("DIMM1.pwm", dimm1.getPwm1());
-                //jObj.put("DIMM1.active", dimm1.getStatus1());
-                //jObj.put("DIMM1.sensor", dimm1.getStatus2());
+                jObj.put("dimm1.pwm", dimm1.getPwm1());
+                jObj.put("dimm1.active", dimm1.getStatus1());
+                jObj.put("dimm1.sensor", dimm1.getStatus2());
 //
-                //jObj.put("DIMM2.pwm", dimm2.getPwm1());
-                //jObj.put("DIMM2.active", dimm2.getStatus1());
-                //jObj.put("DIMM2.sensor", dimm2.getStatus2());
+                jObj.put("dimm2.pwm", dimm2.getPwm1());
+                jObj.put("dimm2.active", dimm2.getStatus1());
+                jObj.put("dimm2.sensor", dimm2.getStatus2());
 
-                jObj.put("pwmR", rgb1.getPwm1());
-                jObj.put("pwmG", rgb1.getPwm2());
-                jObj.put("pwmB", rgb1.getPwm3());
-                jObj.put("active", rgb1.getStatus1());
-                jObj.put("sensor", rgb1.getStatus2());
+                jObj.put("lR1.pwm", rgb1.getPwm1());
+                jObj.put("lG1.pwm", rgb1.getPwm2());
+                jObj.put("lB1.pwm", rgb1.getPwm3());
+                jObj.put("RGB1.active", rgb1.getStatus1());
 
-                //jObj.put("RGB2.pwmR", rgb2.getPwm1());
-                //jObj.put("RGB2.pwmG", rgb2.getPwm2());
-                //jObj.put("RGB2.pwmB", rgb2.getPwm3());
-                //jObj.put("RGB2.active", rgb2.getStatus1());
-                //jObj.put("RGB2.sensor", rgb2.getStatus2());
+
+                jObj.put("lR1.pwmR", rgb2.getPwm1());
+                jObj.put("lG1.pwmG", rgb2.getPwm2());
+                jObj.put("lB1.pwmB", rgb2.getPwm3());
+                jObj.put("RGB2.active", rgb2.getStatus1());
+
 
                 sendMessageFlag = true;
 
