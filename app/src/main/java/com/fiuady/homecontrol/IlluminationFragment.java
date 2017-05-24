@@ -401,7 +401,7 @@ public class IlluminationFragment extends Fragment{
                 inventory.saveProfileDevice(dimm2);
                 try {
                     JSONObject jO = new JSONObject();
-                    jO.put("dimm2.status2", dimm1.getStatus2());
+                    jO.put("dimm2.status2", dimm2.getStatus2());
                     sendJSON(jO);
 
                 }catch (JSONException o){}

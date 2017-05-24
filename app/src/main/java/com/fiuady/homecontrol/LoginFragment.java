@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.fiuady.homecontrol.db.Inventory;
 
+import io.apptik.widget.MultiSlider;
+
 public class LoginFragment extends Fragment {
 
 
@@ -37,6 +39,7 @@ public class LoginFragment extends Fragment {
     private ConnectFragment connectFragment;
 
     private MainActivity mainActivity;
+
     //testFragment mainFragment;
 
     @Override
@@ -72,7 +75,6 @@ public class LoginFragment extends Fragment {
         signinAttempt = (TextView)view.findViewById(R.id.signin_attempt_txt);
         usertxt = (EditText)view.findViewById(R.id.user_edittext);
         passwordtxt = (EditText)view.findViewById(R.id.password_edittext);
-
 
 
         signinButton.setOnClickListener(new View.OnClickListener() {
