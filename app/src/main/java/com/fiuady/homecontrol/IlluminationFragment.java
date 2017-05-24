@@ -113,19 +113,19 @@ public class IlluminationFragment extends Fragment{
         jsonObjects = new ArrayList<>();
 
         btSocket = mainActivity.getConnectedSocket();
-        //if(btSocket!=null) {
-        //    btThread = new BtBackgroundTask(btSocket);
-        //    btThread.execute();
-        //    try {
-//
-        //        btOS = btSocket.getOutputStream();
-        //        btbw = new BufferedWriter(new OutputStreamWriter(btOS));
-//
-        //    }catch (IOException e){
-//
-//
-        //    }
-        //}
+        if(btSocket!=null) {
+            //btThread = new BtBackgroundTask(btSocket);
+            //btThread.execute();
+            try {
+
+                btOS = btSocket.getOutputStream();
+                btbw = new BufferedWriter(new OutputStreamWriter(btOS));
+
+            }catch (IOException e){
+
+
+            }
+        }
 
 
 
@@ -152,6 +152,7 @@ public class IlluminationFragment extends Fragment{
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 dimm1.setPwm1(progress);
+                inventory.saveProfileDevice(dimm1);
                 try {
                     JSONObject jO = new JSONObject();
                     jO.put("dimm1.pwm", progress);
@@ -159,8 +160,7 @@ public class IlluminationFragment extends Fragment{
 
                 }catch (JSONException o){}
 
-                dimm1.setPwm1(progress);
-                inventory.saveProfileDevice(dimm1);
+
             }
 
             @Override
@@ -178,6 +178,7 @@ public class IlluminationFragment extends Fragment{
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 dimm2.setPwm1(progress);
+                inventory.saveProfileDevice(dimm2);
                 try {
                     JSONObject jO = new JSONObject();
                     jO.put("dimm2.pwm", progress);
@@ -185,8 +186,7 @@ public class IlluminationFragment extends Fragment{
 
                 }catch (JSONException o){}
 
-                dimm2.setPwm1(progress);
-                inventory.saveProfileDevice(dimm2);
+
             }
 
             @Override
@@ -229,6 +229,10 @@ public class IlluminationFragment extends Fragment{
                                 //changeBackgroundColor(selectedColor);
 
                                 color1.setBackgroundColor(selectedColor);
+                                rgb1.setPwm1(Color.red(selectedColor));
+                                rgb1.setPwm2(Color.green(selectedColor));
+                                rgb1.setPwm3(Color.blue(selectedColor));
+                                inventory.saveProfileDevice(rgb1);
                                 try {
                                     JSONObject jO = new JSONObject();
                                     jO.put("rgb1.R", Color.red(selectedColor));
@@ -238,10 +242,7 @@ public class IlluminationFragment extends Fragment{
 
                                 }catch (JSONException o){}
 
-                                rgb1.setPwm1(Color.red(selectedColor));
-                                rgb1.setPwm2(Color.green(selectedColor));
-                                rgb1.setPwm3(Color.blue(selectedColor));
-                                inventory.saveProfileDevice(rgb1);
+
                             }
                         })
                         .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -274,6 +275,10 @@ public class IlluminationFragment extends Fragment{
                             public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
                                 //changeBackgroundColor(selectedColor);
                                 color2.setBackgroundColor(selectedColor);
+                                rgb2.setPwm1(Color.red(selectedColor));
+                                rgb2.setPwm2(Color.green(selectedColor));
+                                rgb2.setPwm3(Color.blue(selectedColor));
+                                inventory.saveProfileDevice(rgb2);
                                 try {
                                     JSONObject jO = new JSONObject();
 
@@ -283,10 +288,7 @@ public class IlluminationFragment extends Fragment{
                                     sendJSON(jO);
                                 }catch (JSONException o){}
 
-                                rgb2.setPwm1(Color.red(selectedColor));
-                                rgb2.setPwm2(Color.green(selectedColor));
-                                rgb2.setPwm3(Color.blue(selectedColor));
-                                inventory.saveProfileDevice(rgb2);
+
                             }
                         })
                         .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -324,54 +326,56 @@ public class IlluminationFragment extends Fragment{
         dimm1sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                dimm1.setStatus1(isChecked);
+                inventory.saveProfileDevice(dimm1);
                 try {
                     JSONObject jO = new JSONObject();
                     jO.put("dimm1.status1", isChecked);
                     sendJSON(jO);
 
                 }catch (JSONException o){}
-                dimm1.setStatus1(isChecked);
-                inventory.saveProfileDevice(dimm1);
+
             }
         });
         dimm2sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                dimm2.setStatus1(isChecked);
+                inventory.saveProfileDevice(dimm2);
                 try {
                     JSONObject jO = new JSONObject();
                     jO.put("dimm2.status1", isChecked);
                     sendJSON(jO);
 
                 }catch (JSONException o){}
-                dimm2.setStatus1(isChecked);
-                inventory.saveProfileDevice(dimm2);
+
             }
         });
 
         rgb1sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                rgb1.setStatus1(isChecked);
+                inventory.saveProfileDevice(rgb1);
                 try {
                     JSONObject jO = new JSONObject();
                     jO.put("rgb1.status1", rgb1.getStatus1());
                     sendJSON(jO);
                 }catch (JSONException o){}
-                rgb1.setStatus1(isChecked);
-                inventory.saveProfileDevice(rgb1);
+
             }
         });
         rgb2sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                rgb2.setStatus1(isChecked);
+                inventory.saveProfileDevice(rgb2);
                 try {
                     JSONObject jO = new JSONObject();
                     jO.put("rgb2.status1", rgb2.getStatus1());
                     sendJSON(jO);
                 }catch (JSONException o){}
-                rgb2.setStatus1(isChecked);
-                inventory.saveProfileDevice(rgb2);
+
             }
         });
 
@@ -379,29 +383,29 @@ public class IlluminationFragment extends Fragment{
         dimm1chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                dimm1.setStatus2(isChecked);
+                inventory.saveProfileDevice(dimm1);
                 try {
                     JSONObject jO = new JSONObject();
                     jO.put("dimm1.status2", dimm1.getStatus2());
                     sendJSON(jO);
 
                 }catch (JSONException o){}
-                dimm1.setStatus2(isChecked);
-                inventory.saveProfileDevice(dimm1);
+
             }
         });
         dimm2chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                dimm2.setStatus2(isChecked);
+                inventory.saveProfileDevice(dimm2);
                 try {
                     JSONObject jO = new JSONObject();
                     jO.put("dimm2.status2", dimm1.getStatus2());
                     sendJSON(jO);
 
                 }catch (JSONException o){}
-                dimm2.setStatus2(isChecked);
-                inventory.saveProfileDevice(dimm2);
+
 
             }
         });
