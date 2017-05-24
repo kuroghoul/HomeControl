@@ -134,10 +134,10 @@ public class LoginFragment extends Fragment {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                testFragment testfragmento = new testFragment();
+                MainFragment mainFragment = new MainFragment();
 
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, testfragmento);
+                ft.replace(R.id.fragment_container, mainFragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
