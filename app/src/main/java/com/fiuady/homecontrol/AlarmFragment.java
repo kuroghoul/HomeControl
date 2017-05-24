@@ -136,7 +136,7 @@ public class AlarmFragment extends Fragment {
 
             }
         }
-
+//hasoudjhbasioñdbf
         @Override
         protected Void doInBackground(BluetoothSocket... params) {
             try {
