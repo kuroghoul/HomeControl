@@ -46,6 +46,7 @@ public class LoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         mainActivity = (MainActivity)getActivity();
         inventory = new Inventory(getActivity());
         mainFragment = new MainFragment();
