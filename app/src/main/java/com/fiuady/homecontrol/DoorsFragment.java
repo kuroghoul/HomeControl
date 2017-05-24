@@ -60,7 +60,8 @@ public class DoorsFragment extends Fragment {
 
     private TextView doorMainTxt;
     private TextView door2Txt;
-
+    private OutputStream btOS;
+    private BufferedWriter btbw;
     ArrayList<ProfileDevice> devices;
 
     @Override
@@ -79,6 +80,15 @@ public class DoorsFragment extends Fragment {
         if(btSocket!=null) {
             btThread = new BtBackgroundTask(btSocket);
             btThread.execute();
+            try {
+
+                btOS = btSocket.getOutputStream();
+                btbw = new BufferedWriter(new OutputStreamWriter(btOS));
+
+            }catch (IOException e){
+
+
+            }
         }
         devices = mainActivity.getProfileDevices();
 
@@ -126,7 +136,12 @@ public class DoorsFragment extends Fragment {
 
                         mainActivity.hideKeyboard(mainActivity,v);
                         //----------------------PONER FUNCION PARA ABRIR PUERTA-----------------------------//
+                        try {
+                            JSONObject jO = new JSONObject();
+                            jO.put("door1status1", true);
+                            sendJSON(jO);
 
+                        }catch (JSONException o){}
                     }
                     else
                     {
@@ -138,6 +153,12 @@ public class DoorsFragment extends Fragment {
                 {
                     doorMainBtn.setBackgroundResource(R.drawable.hardlocked);
                     doorMain.setStatus1(false);
+                    try {
+                        JSONObject jO = new JSONObject();
+                        jO.put("door1status1", false);
+                        sendJSON(jO);
+
+                    }catch (JSONException o){}
 
                 }
 
@@ -153,23 +174,22 @@ public class DoorsFragment extends Fragment {
                 if (door2.getStatus1()) {
                     door2.setStatus1(false);
                     door2Btn.setBackgroundResource(R.drawable.locked);
+                    try {
+                        JSONObject jO = new JSONObject();
+                        jO.put("door2status1", false);
+                        sendJSON(jO);
+
+                    }catch (JSONException o){}
                 } else {
                     door2.setStatus1(true);
                     door2Btn.setBackgroundResource(R.drawable.unlocked);
 
-                    if ((btSocket != null) && (btSocket.isConnected())) {
-                        jObj = new JSONObject();
-                        try {
-                            jObj.put("dimm1", devices.get(0).getPwm1());
-                            jObj.put("dimm2", devices.get(1).getPwm1());
-                            jObj.put("door1", devices.get(2).getPwm1());
-                            jObj.put("door2", devices.get(3).getPwm1());
+                    try {
+                        JSONObject jO = new JSONObject();
+                        jO.put("door2status1", true);
+                        sendJSON(jO);
 
-                        } catch (JSONException e) {
-                        }
-
-
-                    }
+                    }catch (JSONException o){}
                 }
                     sendMessageFlag=true;
                     inventory.saveProfileDevice(door2);
@@ -178,9 +198,18 @@ public class DoorsFragment extends Fragment {
 
     }
 
+    void sendJSON (JSONObject jsonObject)
+    {
+        if ((btSocket != null) && (btSocket.isConnected())) {
+            try {
+                btbw.write(jsonObject.toString());
+                btbw.flush();
+            } catch (IOException o) {
+            }
+        }
+    }
 
-
-    private class BtBackgroundTask extends AsyncTask<BluetoothSocket, String, Void> {
+    private class BtBackgroundTask extends AsyncTask<JSONObject, String, Void> {
         private InputStream mmInStream = null;
         private OutputStream mmOutStream = null;
         BufferedReader br;
@@ -194,6 +223,7 @@ public class DoorsFragment extends Fragment {
                 br = new BufferedReader(new InputStreamReader(mmInStream));
                 bw = new BufferedWriter(new OutputStreamWriter(mmOutStream));
 
+
             }catch (IOException e){
 
 
@@ -201,18 +231,23 @@ public class DoorsFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(BluetoothSocket... params) {
+        protected Void doInBackground(JSONObject... params) {
             try {
-                Log.d("Primera ejecucion BT", "true");
                 while (!isCancelled()) {
                     String readMessage = br.readLine();
-                    if(sendMessageFlag)
-                    {
-                        bw.flush();
-                        bw.write(jObj.toString());
-                        bw.flush();
-                        sendMessageFlag=false;
-                    }
+                    //if(sendMessageFlag)
+                    //{
+
+                    //for(JSONObject jsonObject : jsonObjects)
+                    //{
+                    //    mmOutStream.flush();
+                    //    mmOutStream.write((jsonObject.toString()+"\r").getBytes());
+                    //}
+                    //    bw.flush();
+                    //    bw.write(((JSONObject)params[0]).toString());
+
+                    //    sendMessageFlag=false;
+                    //}
                     publishProgress(readMessage);
                 }
             } catch (IOException e) {
@@ -223,7 +258,6 @@ public class DoorsFragment extends Fragment {
 
         @Override
         protected void onProgressUpdate(String... values) {
-
 
 
         }
