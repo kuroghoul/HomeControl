@@ -16,7 +16,7 @@ public class Inventory {
     private SQLiteDatabase db;
 
     public enum LoginResponse {Success, InvalidUser, WrongPassword}
-    public enum RegisterResponse {Success, DuplicatedUser}
+    public enum RegisterResponse {Success, DuplicatedUser, InvalidCredentials}
 
     public Inventory(Context context){
 
@@ -148,14 +148,18 @@ public class Inventory {
 
     public RegisterResponse attemptRegister (String username, String password, String nip)
     {
-        if(searchUserByName(username)!=null)
+        if(username.trim().equals("")||password.trim().equals("")||nip.trim().equals(""))
+        {
+            return RegisterResponse.InvalidCredentials;
+        }
+        else if(searchUserByName(username.trim())!=null)
         {
             return RegisterResponse.DuplicatedUser;
         }
         else
         {
             int id = getNewIdFrom(DBSchema.UsersTable.NAME);
-            db.execSQL("INSERT INTO users VALUES ("+String.valueOf(id)+", '"+username+"', '"+password+"', '"+nip+"');");
+            db.execSQL("INSERT INTO users VALUES ("+String.valueOf(id)+", '"+username.trim()+"', '"+password+"', '"+nip+"');");
             generateDefaultUserProfile(id);
             return RegisterResponse.Success;
         }

@@ -62,6 +62,9 @@ public class RegisterFragment extends Fragment {
                         passwordTxt.getText().toString(),
                         nipTxt.getText().toString()))
                 {
+                    case InvalidCredentials:
+                        Toast.makeText(mainActivity, "Credenciales inválidas", Toast.LENGTH_LONG).show();
+                        break;
                     case DuplicatedUser:
                         Toast.makeText(mainActivity, "Ya existe un usuario con ese nombre", Toast.LENGTH_LONG).show();
                         break;
