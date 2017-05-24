@@ -142,7 +142,7 @@ public class IlluminationFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        textprobando = (TextView)view.findViewById(R.id.illumination_description4);
+
         dimm1SeekBar = (SeekBar)view.findViewById(R.id.illumination_seekbar1);
         dimm1SeekBar.setProgress(dimm1.getPwm1());
         dimm2SeekBar = (SeekBar)view.findViewById(R.id.illumination_seekbar2);

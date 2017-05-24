@@ -88,7 +88,7 @@
                 android:orientation="vertical"
                 android:gravity="center">
                 <ImageButton
-                    android:id="@+id/movement_detector_btn"
+                    android:id="@+id/alarm_btn"
                     android:layout_height="110dp"
                     android:layout_width="110dp"
                     android:src="@drawable/alarm"
@@ -101,24 +101,7 @@
                     android:text="@string/alarm"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
-                <ImageButton
-                    android:id="@+id/alarm_btn"
-                    android:layout_height="110dp"
-                    android:layout_width="110dp"
-                    android:src="@drawable/movement"
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitXY"
-                    android:padding="5dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/movement_detector"/>
-            </LinearLayout>
+
         </LinearLayout>
 
 

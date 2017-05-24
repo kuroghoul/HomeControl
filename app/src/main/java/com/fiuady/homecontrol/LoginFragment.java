@@ -23,7 +23,7 @@ public class LoginFragment extends Fragment {
 
     private Button signupButton;
     private Button signinButton;
-    private Button testButton;
+    //private Button testButton;
 
     private EditText usertxt;
     private EditText passwordtxt;
@@ -72,7 +72,7 @@ public class LoginFragment extends Fragment {
 
         signinButton = (Button)view.findViewById(R.id.signin_button);
         signupButton = (Button)view.findViewById(R.id.signup_button);
-        testButton = (Button)view.findViewById(R.id.testButton);
+        //testButton = (Button)view.findViewById(R.id.testButton);
         signinAttempt = (TextView)view.findViewById(R.id.signin_attempt_txt);
         usertxt = (EditText)view.findViewById(R.id.user_edittext);
         passwordtxt = (EditText)view.findViewById(R.id.password_edittext);
@@ -134,17 +134,17 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainFragment mainFragment = new MainFragment();
-
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, mainFragment);
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-        });
+        //testButton.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //        MainFragment mainFragment = new MainFragment();
+//
+        //        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        //        ft.replace(R.id.fragment_container, mainFragment);
+        //        ft.addToBackStack(null);
+        //        ft.commit();
+        //    }
+        //});
     }
 
 

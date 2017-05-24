@@ -58,15 +58,7 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-        <io.apptik.widget.MultiSlider
-            android:id="@+id/multislider"
-            style="@style/Widget.MultiSlider"
-            app:trackColor="@color/colorPrimaryDark"
-            app:rangeColor="@color/colorAccent"
-            app:thumbValue1="0"
-            app:scaleMax="100"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/rangemin"
             android:layout_width="wrap_content"

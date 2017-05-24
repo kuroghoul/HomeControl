@@ -13,59 +13,196 @@
         android:layout_gravity="center_horizontal"
         app:srcCompat="@drawable/te"
         android:layout_weight="0.12" />
-
-    <Switch
-        android:id="@+id/switch4"
+<LinearLayout
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+<RelativeLayout
+    android:padding="1dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:text="VENT1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/seekBar2"
-        android:layout_alignStart="@+id/switch3"
-        android:layout_gravity="center_horizontal|center"
-        android:layout_marginBottom="45dp"
-        android:text="Switch" />
-
-    <SeekBar
-        android:id="@+id/seekBar2"
-        android:layout_width="209dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/switch4"
-        android:layout_below="@+id/switch3"
-        android:layout_marginTop="63dp"
-        android:backgroundTint="@android:color/holo_orange_dark" />
-
+        android:layout_alignParentStart="true"
+        android:layout_centerInParent="true"/>
     <Switch
-        android:id="@+id/switch3"
+        android:id="@+id/vent1_status1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Switch"
-        android:layout_marginRight="22dp"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/switch2" />
-
-    <Switch
-        android:id="@+id/switch2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/switch1"
-        android:layout_alignBottom="@+id/switch1"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="135dp"
-        android:text="Switch" />
-
-    <Switch
-        android:id="@+id/switch1"
+        android:layout_centerInParent="true"/>
+    <TextView
+        android:id="@+id/temp1_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/seekBar2"
-        android:layout_marginTop="39dp"
-        android:layout_toStartOf="@+id/seekBar2"
-        android:text="Switch" />
+        android:layout_centerInParent="true"
+        android:text="-- °C"/>
+</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Temperatura1:"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:padding="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="186dp"
+
+        <CheckBox
+            android:id="@+id/vent1_status2"
+            android:text="auto"
+            android:layout_alignParentStart="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:padding="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/vent1_min_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="mínima\ntemperatura\n0°C"
+            android:textAlignment="center"
+            android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/vent1_max_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="máxima\ntemperatura\n100°C"
+            android:textAlignment="center"
+            android:textSize="12sp"/>
+
+        <io.apptik.widget.MultiSlider
+            android:id="@+id/vent1_minmax"
+            style="@style/Widget.MultiSlider"
+            app:trackColor="@color/colorPrimaryDark"
+            app:rangeColor="@color/colorAccent"
+            app:thumbValue1="0"
+            app:scaleMax="100"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/vent1_min_txt"
+            android:layout_toStartOf="@id/vent1_max_txt"
+            />
+
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/switch1"
-        android:layout_alignTop="@+id/seekBar2"
-        android:layout_marginStart="18dp" />
+        android:orientation="vertical">
+        <RelativeLayout
+            android:padding="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="VENT2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:text="-- °C"
+                android:id="@+id/temp2_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+            <Switch
+                android:id="@+id/vent2_status1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:padding="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/vent2_status2"
+                android:text="auto"
+                android:layout_alignParentStart="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:padding="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/vent2_min_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="mínima\ntemperatura\n0°C"
+                android:textSize="12sp"
+                android:textAlignment="center"/>
+            <TextView
+                android:id="@+id/vent2_max_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="máxima\ntemperatur\n100°C"
+                android:textSize="12sp"
+                android:textAlignment="center"/>
+            <io.apptik.widget.MultiSlider
+                android:id="@+id/vent2_minmax"
+                style="@style/Widget.MultiSlider"
+                app:trackColor="@color/colorPrimaryDark"
+                app:rangeColor="@color/colorAccent"
+                app:thumbValue1="0"
+                app:scaleMax="100"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/vent2_min_txt"
+                android:layout_toStartOf="@id/vent2_max_txt"
+                />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
 </LinearLayout>
