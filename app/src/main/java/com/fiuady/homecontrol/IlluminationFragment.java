@@ -2,7 +2,9 @@ package com.fiuady.homecontrol;
 
 import android.app.Fragment;
 import android.bluetooth.BluetoothSocket;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +17,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fiuady.homecontrol.db.DIMM;
 import com.fiuady.homecontrol.db.Inventory;
@@ -22,11 +26,16 @@ import com.fiuady.homecontrol.db.ProfileDevice;
 import com.fiuady.homecontrol.db.RGB;
 import com.fiuady.homecontrol.db.User;
 import com.fiuady.homecontrol.db.UserProfile;
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -34,6 +43,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 /**
  * Created by Kuro on 21/05/2017.
@@ -46,7 +56,7 @@ public class IlluminationFragment extends Fragment{
     private boolean sendMessageFlag = false;
     JSONObject jObj = null;
 
-
+    private String commandString;
 
     private ProfileDevice dimm1;
     private ProfileDevice dimm2;
@@ -86,7 +96,10 @@ public class IlluminationFragment extends Fragment{
 
     private Button saveBtn;
 
-
+    ArrayList<JSONObject> jsonObjects;
+    private OutputStream btOS;
+    private BufferedWriter btbw;
+    TextView textprobando;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,11 +113,24 @@ public class IlluminationFragment extends Fragment{
         rgb1 = inventory.getProfileDevice(profile.getId(), 12);
         rgb2 = inventory.getProfileDevice(profile.getId(), 13);
 
+        jsonObjects = new ArrayList<>();
+
         btSocket = mainActivity.getConnectedSocket();
         if(btSocket!=null) {
             btThread = new BtBackgroundTask(btSocket);
             btThread.execute();
+            try {
+
+                btOS = btSocket.getOutputStream();
+                btbw = new BufferedWriter(new OutputStreamWriter(btOS));
+
+            }catch (IOException e){
+
+
+            }
         }
+
+
 
     }
 
@@ -119,7 +145,7 @@ public class IlluminationFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        textprobando = (TextView)view.findViewById(R.id.illumination_description4);
         dimm1SeekBar = (SeekBar)view.findViewById(R.id.illumination_seekbar1);
         dimm1SeekBar.setProgress(dimm1.getPwm1());
         dimm2SeekBar = (SeekBar)view.findViewById(R.id.illumination_seekbar2);
@@ -148,53 +174,100 @@ public class IlluminationFragment extends Fragment{
         color1.setBackgroundColor(Color.argb(255, rgb1SBR.getProgress(), rgb1SBG.getProgress(), rgb1SBB.getProgress()));
         color2.setBackgroundColor(Color.argb(255, rgb2SBR.getProgress(), rgb2SBG.getProgress(), rgb2SBB.getProgress()));
 
-        SeekBar.OnSeekBarChangeListener colorListener1 = new SeekBar.OnSeekBarChangeListener()
-        {
+        color1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            color1.setBackgroundColor(Color.argb(255, rgb1SBR.getProgress(), rgb1SBG.getProgress(), rgb1SBB.getProgress()));
-        }
+            public void onClick(View v) {
+                ColorPickerDialogBuilder
+                        .with(mainActivity)
+                        .setTitle("Choose color")
+                        .initialColor(((ColorDrawable)color1.getBackground()).getColor())
+                        .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
+                        .density(12)
+                        .setOnColorSelectedListener(new OnColorSelectedListener() {
+                            @Override
+                            public void onColorSelected(int selectedColor) {
+                                //Toast.makeText(mainActivity,"onColorSelected: 0x" + Integer.toHexString(selectedColor), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setPositiveButton("ok", new ColorPickerClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                                //changeBackgroundColor(selectedColor);
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+                                color1.setBackgroundColor(selectedColor);
+                                try {
+                                    JSONObject jO = new JSONObject();
 
-        }
+                                    jO.put("rgb1.R", Color.red(selectedColor));
+                                    jO.put("rgb1.G", Color.green(selectedColor));
+                                    jO.put("rgb1.B", Color.blue(selectedColor));
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+                                    sendJSON(jO);
+                                }catch (JSONException o){}
 
-        }
-        };
+                                rgb1.setPwm1(Color.red(selectedColor));
+                                rgb1.setPwm2(Color.green(selectedColor));
+                                rgb1.setPwm3(Color.blue(selectedColor));
 
-        SeekBar.OnSeekBarChangeListener colorListener2 = new SeekBar.OnSeekBarChangeListener()
-        {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                color2.setBackgroundColor(Color.argb(255, rgb2SBR.getProgress(), rgb2SBG.getProgress(), rgb2SBB.getProgress()));
+
+                            }
+                        })
+                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .build()
+                        .show();
             }
-
+        });
+        color2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void onClick(View v) {
+                ColorPickerDialogBuilder
+                        .with(mainActivity)
+                        .setTitle("Choose color")
+                        .initialColor(((ColorDrawable)color2.getBackground()).getColor())
+                        .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
+                        .density(12)
+                        .setOnColorSelectedListener(new OnColorSelectedListener() {
+                            @Override
+                            public void onColorSelected(int selectedColor) {
+                                //Toast.makeText(mainActivity,"onColorSelected: 0x" + Integer.toHexString(selectedColor), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setPositiveButton("ok", new ColorPickerClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                                //changeBackgroundColor(selectedColor);
+                                color2.setBackgroundColor(selectedColor);
+                                try {
+                                    JSONObject jO = new JSONObject();
 
+                                    jO.put("rgb2.R", Color.red(selectedColor));
+                                    jO.put("rgb2.G", Color.green(selectedColor));
+                                    jO.put("rgb2.B", Color.blue(selectedColor));
+
+                                    sendJSON(jO);
+                                }catch (JSONException o){}
+                            }
+                        })
+                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .build()
+                        .show();
             }
+        });
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        };
-        rgb1SBR.setOnSeekBarChangeListener(colorListener1);
-        rgb1SBG.setOnSeekBarChangeListener(colorListener1);
-        rgb1SBB.setOnSeekBarChangeListener(colorListener1);
-
-        rgb2SBR.setOnSeekBarChangeListener(colorListener2);
-        rgb2SBG.setOnSeekBarChangeListener(colorListener2);
-        rgb2SBB.setOnSeekBarChangeListener(colorListener2);
 
         dimm1sw = (Switch)view.findViewById(R.id.illumination_switch1);
         dimm2sw = (Switch)view.findViewById(R.id.illumination_switch2);
         rgb1sw = (Switch)view.findViewById(R.id.illumination_switch3);
         rgb2sw = (Switch)view.findViewById(R.id.illumination_switch4);
+
 
         dimm1sw.setChecked(dimm1.getStatus1());
         dimm2sw.setChecked(dimm2.getStatus1());
@@ -215,24 +288,48 @@ public class IlluminationFragment extends Fragment{
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 dimm1.setStatus1(isChecked);
+                try {
+                    JSONObject jO = new JSONObject();
+                    jO.put("dimm1.status1", dimm1.getStatus1());
+                    sendJSON(jO);
+
+                }catch (JSONException o){}
+
             }
         });
         dimm2sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 dimm2.setStatus1(isChecked);
+
+                try {
+                    JSONObject jO = new JSONObject();
+                    jO.put("dimm2.status1", dimm2.getStatus1());
+                    sendJSON(jO);
+
+                }catch (JSONException o){}
             }
         });
         rgb1sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 rgb1.setStatus1(isChecked);
+                try {
+                    JSONObject jO = new JSONObject();
+                    jO.put("rgb1.status1", rgb1.getStatus1());
+                    sendJSON(jO);
+                }catch (JSONException o){}
             }
         });
         rgb2sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 rgb2.setStatus1(isChecked);
+                try {
+                    JSONObject jO = new JSONObject();
+                    jO.put("rgb2.status1", rgb2.getStatus1());
+                    sendJSON(jO);
+                }catch (JSONException o){}
             }
         });
 
@@ -241,12 +338,25 @@ public class IlluminationFragment extends Fragment{
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 dimm1.setStatus2(isChecked);
+                try {
+                    JSONObject jO = new JSONObject();
+                    jO.put("dimm1.status2", dimm1.getStatus2());
+                    sendJSON(jO);
+
+                }catch (JSONException o){}
             }
         });
         dimm2chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 dimm2.setStatus2(isChecked);
+                try {
+                    JSONObject jO = new JSONObject();
+                    jO.put("dimm2.status2", dimm1.getStatus2());
+                    sendJSON(jO);
+
+                }catch (JSONException o){}
+
             }
         });
         //rgb1chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -268,7 +378,7 @@ public class IlluminationFragment extends Fragment{
             public void onClick(View v) {
                 saveIlluminationChanges();
                 sendMessageFlag=true;
-                getFragmentManager().popBackStackImmediate();
+                //getFragmentManager().popBackStackImmediate();
             }
         });
 
@@ -276,7 +386,13 @@ public class IlluminationFragment extends Fragment{
 
 
 
-
+    void sendJSON (JSONObject jsonObject)
+    {
+        try {
+            btbw.write(jsonObject.toString());
+            btbw.flush();
+        }catch (IOException o){}
+    }
 
 
     public void saveIlluminationChanges()
@@ -289,15 +405,6 @@ public class IlluminationFragment extends Fragment{
         dimm2.setStatus1(dimm2sw.isChecked());
         dimm2.setStatus2(dimm2chk.isChecked());
 
-        rgb1.setPwm1(rgb1SBR.getProgress());
-        rgb1.setPwm2(rgb1SBG.getProgress());
-        rgb1.setPwm3(rgb1SBB.getProgress());
-        rgb1.setStatus1(rgb1sw.isChecked());
-
-        rgb2.setPwm1(rgb2SBR.getProgress());
-        rgb2.setPwm2(rgb2SBG.getProgress());
-        rgb2.setPwm3(rgb2SBB.getProgress());
-        rgb2.setStatus1(rgb2sw.isChecked());
 
         inventory.saveProfileDevice(dimm1);
         inventory.saveProfileDevice(dimm2);
@@ -305,8 +412,27 @@ public class IlluminationFragment extends Fragment{
         inventory.saveProfileDevice(rgb2);
         //AQUI PRETENDO ENVIAR LA INFORMACIÓN DE LOS DISPOSITIVOS AL ARDUINO---------------------
         if ((btSocket != null) && (btSocket.isConnected())) {
+            jsonObjects.clear();
             jObj = new JSONObject();
             try {
+                jsonObjects.add(new JSONObject("{\"dimm1.pwm\":"+String.valueOf(dimm1.getPwm1())+"}"));
+                jsonObjects.add(new JSONObject("{\"dimm1.active\":"+String.valueOf(dimm1.getStatus1())+"}"));
+                jsonObjects.add(new JSONObject("{\"dimm1.sensor\":"+String.valueOf(dimm1.getStatus2())+"}"));
+
+                jsonObjects.add(new JSONObject("{\"dimm2.pwm\":"+String.valueOf(dimm2.getPwm1())+"}"));
+                jsonObjects.add(new JSONObject("{\"dimm2.active\":"+String.valueOf(dimm2.getStatus1())+"}"));
+                jsonObjects.add(new JSONObject("{\"dimm2.sensor\":"+String.valueOf(dimm2.getStatus2())+"}"));
+
+                jsonObjects.add(new JSONObject("{\"RGB1.R\":"+String.valueOf(rgb1.getPwm1())+"}"));
+                jsonObjects.add(new JSONObject("{\"RGB1.G\":"+String.valueOf(rgb1.getPwm2())+"}"));
+                jsonObjects.add(new JSONObject("{\"RGB1.B\":"+String.valueOf(rgb1.getPwm3())+"}"));
+                jsonObjects.add(new JSONObject("{\"RGB1.active\":"+String.valueOf(rgb1.getStatus1())+"}"));
+
+                jsonObjects.add(new JSONObject("{\"RGB2.R\":"+String.valueOf(rgb1.getPwm1())+"}"));
+                jsonObjects.add(new JSONObject("{\"RGB2.G\":"+String.valueOf(rgb1.getPwm2())+"}"));
+                jsonObjects.add(new JSONObject("{\"RGB2.B\":"+String.valueOf(rgb1.getPwm3())+"}"));
+                jsonObjects.add(new JSONObject("{\"RGB2.active\":"+String.valueOf(rgb1.getStatus1())+"}"));
+
                 jObj.put("dimm1.pwm", dimm1.getPwm1());
                 jObj.put("dimm1.active", dimm1.getStatus1());
                 jObj.put("dimm1.sensor", dimm1.getStatus2());
@@ -315,9 +441,9 @@ public class IlluminationFragment extends Fragment{
                 jObj.put("dimm2.active", dimm2.getStatus1());
                 jObj.put("dimm2.sensor", dimm2.getStatus2());
 
-                jObj.put("lR1.pwm", rgb1.getPwm1());
-                jObj.put("lG1.pwm", rgb1.getPwm2());
-                jObj.put("lB1.pwm", rgb1.getPwm3());
+                jObj.put("RGB1.lR1", rgb1.getPwm1());
+                jObj.put("RGB1.lG1", rgb1.getPwm2());
+                jObj.put("RGB1.lB1", rgb1.getPwm3());
                 jObj.put("RGB1.active", rgb1.getStatus1());
 
 
@@ -337,7 +463,7 @@ public class IlluminationFragment extends Fragment{
     }
 
 
-    private class BtBackgroundTask extends AsyncTask<BluetoothSocket, String, Void> {
+    private class BtBackgroundTask extends AsyncTask<JSONObject, String, Void> {
         private InputStream mmInStream = null;
         private OutputStream mmOutStream = null;
         BufferedReader br;
@@ -351,6 +477,7 @@ public class IlluminationFragment extends Fragment{
                 br = new BufferedReader(new InputStreamReader(mmInStream));
                 bw = new BufferedWriter(new OutputStreamWriter(mmOutStream));
 
+
             }catch (IOException e){
 
 
@@ -358,19 +485,25 @@ public class IlluminationFragment extends Fragment{
         }
 
         @Override
-        protected Void doInBackground(BluetoothSocket... params) {
+        protected Void doInBackground(JSONObject... params) {
             try {
                 Log.d("Primera ejecucion BT", "true");
                 while (!isCancelled()) {
                     String readMessage = br.readLine();
-                    if(sendMessageFlag)
-                    {
-                        bw.flush();
-                        bw.write(jObj.toString());
-                        bw.flush();
-                        sendMessageFlag=false;
-                    }
-                    publishProgress(readMessage);
+                    //if(sendMessageFlag)
+                    //{
+////
+                    //for(JSONObject jsonObject : jsonObjects)
+                    //{
+                    //    mmOutStream.flush();
+                    //    mmOutStream.write((jsonObject.toString()+"\r").getBytes());
+                    //}
+                    //    bw.flush();
+                    //    bw.write(((JSONObject)params[0]).toString());
+//
+                    //    sendMessageFlag=false;
+                    //}
+                    //publishProgress(readMessage);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -380,8 +513,9 @@ public class IlluminationFragment extends Fragment{
 
         @Override
         protected void onProgressUpdate(String... values) {
-
-
+            if(jObj!=null) {
+                textprobando.setText(jObj.toString());
+            }
 
         }
     }
