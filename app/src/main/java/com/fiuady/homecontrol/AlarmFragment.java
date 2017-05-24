@@ -96,6 +96,7 @@ public class AlarmFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_alarm,container, false);
     }
 
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
