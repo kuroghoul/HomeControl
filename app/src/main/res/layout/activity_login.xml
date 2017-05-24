@@ -30,14 +30,26 @@
             <LinearLayout
                 android:id="@+id/email_login_form"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="229dp"
+                    android:layout_height="238dp"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/usuario" />
+
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="153dp"
                     android:layout_height="wrap_content"
-                    android:focusableInTouchMode="true"
+                    android:layout_gravity="center"
+                    android:background="@android:color/holo_orange_dark"
                     android:focusable="true"
-                    android:text="Inicie sesión para poder utilizar la aplicación."/>
+                    android:focusableInTouchMode="true"
+                    android:text="Inicie sesión para poder utilizar la aplicación."
+                    android:textColor="@android:color/background_light" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -49,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Usuario"
                         android:inputType="text"
-                        android:maxLines="1"/>
+                        android:maxLines="1" />
 
                 </LinearLayout>
 
@@ -78,30 +90,28 @@
                 <Button
                     android:id="@+id/signin_button"
                     style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="353dp"
+                    android:layout_height="43dp"
+                    android:layout_gravity="center"
                     android:layout_marginTop="16dp"
+                    android:background="@drawable/madera"
                     android:text="Iniciar Sesión"
+                    android:textColor="@android:color/background_light"
                     android:textStyle="bold" />
+
                 <Button
                     android:id="@+id/signup_button"
                     style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="353dp"
+                    android:layout_height="43dp"
+                    android:layout_gravity="center"
                     android:layout_marginTop="16dp"
+                    android:background="@drawable/madera"
                     android:text="Registrarse"
+                    android:textColor="@android:color/background_light"
                     android:textStyle="bold" />
-                <Button
-                    android:id="@+id/testButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="hola"/>
 
-            <SeekBar
-                android:id="@+id/seekTest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="255"/>
+
                 <TextView
                     android:id="@+id/textTest"
                     android:layout_width="wrap_content"
