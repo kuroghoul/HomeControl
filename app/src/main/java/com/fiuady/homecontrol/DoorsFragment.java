@@ -126,6 +126,7 @@ public class DoorsFragment extends Fragment {
 
                         mainActivity.hideKeyboard(mainActivity,v);
                         //----------------------PONER FUNCION PARA ABRIR PUERTA-----------------------------//
+
                     }
                     else
                     {

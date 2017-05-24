@@ -128,6 +128,8 @@ public class TemperatureFragment extends Fragment {
             public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
                 if (thumbIndex==0)
                 {
+                    vent1.setPwm1(value);
+                    inventory.saveProfileDevice(vent1);
                     vent1mintxt.setText("mínima\ntemperatura\n"+ String.valueOf(value) +"°C");
                     try {
                         JSONObject jO = new JSONObject();
@@ -138,6 +140,8 @@ public class TemperatureFragment extends Fragment {
                 }
                 else if(thumbIndex==1)
                 {
+                    vent1.setPwm2(value);
+                    inventory.saveProfileDevice(vent1);
                     vent1maxtxt.setText("máxima\ntemperatura\n"+ String.valueOf(value) +"°C");
                     try {
                         JSONObject jO = new JSONObject();
@@ -153,10 +157,12 @@ public class TemperatureFragment extends Fragment {
         vent2minmax.setOnThumbValueChangeListener(new MultiSlider.OnThumbValueChangeListener() {
             @Override
             public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
+
                 if (thumbIndex==0)
                 {
                     vent2mintxt.setText("mínima\ntemperatura\n"+ String.valueOf(value) +"°C");
-
+                    vent2.setPwm1(value);
+                    inventory.saveProfileDevice(vent2);
                     try {
                         JSONObject jO = new JSONObject();
                         jO.put("vent2pwm1", value);
@@ -166,6 +172,8 @@ public class TemperatureFragment extends Fragment {
                 }
                 else if(thumbIndex==1)
                 {
+                    vent2.setPwm2(value);
+                    inventory.saveProfileDevice(vent2);
                     vent2maxtxt.setText("máxima\ntemperatura\n"+ String.valueOf(value) +"°C");
                     try {
                         JSONObject jO = new JSONObject();
@@ -238,10 +246,13 @@ public class TemperatureFragment extends Fragment {
         vent1Status2chk.setChecked(vent1.getStatus2());
         vent2Status1sw.setChecked(vent2.getStatus1());
         vent2Status2chk.setChecked(vent2.getStatus1());
-        vent1minmax.setMin(vent1.getPwm1());
-        vent1minmax.setMax(vent1.getPwm2());
-        vent2minmax.setMin(vent2.getPwm1());
-        vent2minmax.setMax(vent2.getPwm2());
+
+
+
+        vent1minmax.getThumb(0).setValue(vent1.getPwm1());
+        vent1minmax.getThumb(1).setValue(vent1.getPwm2());
+        vent2minmax.getThumb(0).setValue(vent2.getPwm1());
+        vent2minmax.getThumb(1).setValue(vent2.getPwm2());
     }
     void sendJSON (JSONObject jsonObject)
     {

@@ -175,8 +175,8 @@ public class Inventory {
                 db.rawQuery("INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",7, 0, 0, 0, 0, 0)" , null).moveToNext();
                 db.rawQuery("INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",8, 0, 0, 0, 0, 0)" , null).moveToNext();
                 db.rawQuery("INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",9, 0, 0, 0, 0, 0)" , null).moveToNext();
-                db.rawQuery("INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",10, 0, 0, 0, 0, 0)" , null).moveToNext();
-                db.rawQuery("INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",11, 0, 0, 0, 0, 0)" , null).moveToNext();
+                db.rawQuery("INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",10, 0, 0, 30, 60, 0)" , null).moveToNext();
+                db.rawQuery("INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",11, 0, 0, 30, 60, 0)" , null).moveToNext();
                 db.rawQuery("INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",12, 0, 0, 0, 0, 0)" , null).moveToNext();
                 db.rawQuery("INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",13, 0, 0, 0, 0, 0)" , null).moveToNext();
                 db.rawQuery("INSERT INTO profile_devices VALUES ("+String.valueOf(newId)+",14, 0, 0, 0, 0, 0)" , null).moveToNext();
