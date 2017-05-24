@@ -60,7 +60,9 @@ public class MainFragment extends Fragment {
         alarmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                AlarmFragment doorsFragment = new AlarmFragment();
+                ft.replace(R.id.fragment_container, doorsFragment).addToBackStack(null).commit();
             }
         });
         movementBtn.setOnClickListener(new View.OnClickListener() {

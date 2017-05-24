@@ -72,6 +72,11 @@ public class DoorsFragment extends Fragment {
         doorMain = inventory.getProfileDevice(profile.getId(), 2);
         door2 = inventory.getProfileDevice(profile.getId(), 3);
 
+        btSocket = mainActivity.getConnectedSocket();
+        if(btSocket!=null) {
+            btThread = new BtBackgroundTask(btSocket);
+            btThread.execute();
+        }
 
 
 

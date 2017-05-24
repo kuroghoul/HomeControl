@@ -242,10 +242,22 @@ public class Inventory {
         cursor.close();
     }
 
-    //public ArrayList<UserProfile> getAllUserProfiles (int userId)
-    //{
-//
-    //}
+    public ArrayList<ProfileDevice> getAllDeviceProfiles (int id)
+    {
+        ProfileDeviceCursor cursor = new ProfileDeviceCursor(db.rawQuery(
+
+                "select * from profile_devices where id="+String.valueOf(id), null
+
+        ));
+
+        ArrayList<ProfileDevice> devices = new ArrayList<>();
+        while(cursor.moveToNext())
+        {
+            devices.add(cursor.getProfileDevice());
+        }
+        cursor.close();
+        return devices;
+    }
 
 
 }

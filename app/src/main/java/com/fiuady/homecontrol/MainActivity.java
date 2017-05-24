@@ -32,12 +32,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.UUID;
 
 
 
 
 import com.fiuady.homecontrol.db.Inventory;
+import com.fiuady.homecontrol.db.ProfileDevice;
 import com.fiuady.homecontrol.db.User;
 import com.fiuady.homecontrol.db.UserProfile;
 
@@ -49,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
 
     protected User currentUser;
     protected UserProfile currentUserProfile;
+    protected ArrayList<ProfileDevice> profileDevices;
+    protected Inventory inventory;
+
+    public ArrayList<ProfileDevice> getProfileDevices() {
+        return profileDevices;
+    }
 
 
     @Override
@@ -56,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         currentUser = null;
         currentUserProfile = null;
+        inventory = new Inventory(this);
         setContentView(R.layout.activity_main);
         if (findViewById(R.id.fragment_container)!=null){
             if(savedInstanceState!=null)
@@ -66,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
             getFragmentManager().beginTransaction().add(R.id.fragment_container, loginFragment).commit();
         }
+
     }
 
 
@@ -148,6 +158,13 @@ public class MainActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+    public void generateDevices()
+    {
+        if(currentUser!=null) {
+            profileDevices = inventory.getAllDeviceProfiles(currentUserProfile.getId());
+        }
+
     }
 
     @Override
