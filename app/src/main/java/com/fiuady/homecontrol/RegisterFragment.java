@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.fiuady.homecontrol.R;
 import com.fiuady.homecontrol.db.Inventory;
 
+import io.apptik.widget.MultiSlider;
+
 /**
  * Created by Kuro on 21/05/2017.
  */
@@ -28,6 +30,7 @@ public class RegisterFragment extends Fragment {
 
     private Inventory inventory;
     private MainActivity mainActivity;
+    private MultiSlider multiSlider;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +54,21 @@ public class RegisterFragment extends Fragment {
         userNameTxt = (EditText)view.findViewById(R.id.register_username_et);
         passwordTxt = (EditText)view.findViewById(R.id.register_password_et);
         nipTxt = (EditText)view.findViewById(R.id.register_nip_et);
+        multiSlider = (MultiSlider)view.findViewById(R.id.multislider);
 
+        multiSlider.setOnThumbValueChangeListener(new MultiSlider.OnThumbValueChangeListener() {
+            @Override
+            public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
+                if (thumbIndex==0)
+                {
+                    userNameTxt.setText(String.valueOf(value));
+                }
+                else if(thumbIndex==1)
+                {
+                    userNameTxt.setText(String.valueOf(value));
+                }
+            }
+        });
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
