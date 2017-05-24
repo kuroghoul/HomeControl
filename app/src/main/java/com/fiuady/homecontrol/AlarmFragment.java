@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.Switch;
 import android.widget.TextView;
+
 import com.fiuady.homecontrol.db.Inventory;
 import com.fiuady.homecontrol.db.ProfileDevice;
 import com.fiuady.homecontrol.db.User;
@@ -76,17 +77,17 @@ public class AlarmFragment extends Fragment {
         window3= profileDevices.get(6);
 
         btSocket = mainActivity.getConnectedSocket();
-        try {
-            if(btSocket!=null) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(btSocket.getInputStream()));
-
-
-                btThread = new BtBackgroundTask(btSocket);
-                btThread.execute();
-                Log.d("CREACIÓN DEL BT TASK = ", "true");
-                //Log.d("BufferReader1 ", br.readLine());
-            }
-        }catch (IOException e){}
+        //try {
+        //    if(btSocket!=null) {
+        //        BufferedReader br = new BufferedReader(new InputStreamReader(btSocket.getInputStream()));
+//
+//
+        //        btThread = new BtBackgroundTask(btSocket);
+        //        btThread.execute();
+        //        Log.d("CREACIÓN DEL BT TASK = ", "true");
+        //        //Log.d("BufferReader1 ", br.readLine());
+        //    }
+        //}catch (IOException e){}
     }
 
     @Nullable
@@ -146,7 +147,7 @@ public class AlarmFragment extends Fragment {
                     {
                         bw.flush();
                         bw.write(jObj.toString());
-
+                        bw.flush();
                         sendMessageFlag=false;
                     }
                     publishProgress(readMessage);
@@ -169,6 +170,15 @@ public class AlarmFragment extends Fragment {
             catch (JSONException o){}
 
 
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(btThread!=null)
+        {
+            btThread.cancel(true);
         }
     }
 }

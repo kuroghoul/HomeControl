@@ -21,50 +21,66 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
+            android:padding="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/illumination_description1"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:text="Descripción"/>
+                android:text="DIMM1"/>
             
             <Switch
                 android:id="@+id/illumination_switch1"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
+        </RelativeLayout>
+        <RelativeLayout
+            android:padding="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/illumination_seekbar1_txt"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Intensidad:"/>
             <SeekBar
                 android:id="@+id/illumination_seekbar1"
+                android:layout_toEndOf="@id/illumination_seekbar1_txt"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
                 android:max="255"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
+            android:padding="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sensor Ambiental:" />
             <CheckBox
+                android:layout_alignParentEnd="true"
                 android:id="@+id/illumination_checkbox1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
     
     
@@ -82,50 +98,65 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
+            android:padding="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/illumination_description2"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:text="Descripción"/>
+                android:text="DIMM2"/>
 
             <Switch
                 android:id="@+id/illumination_switch2"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
+        </RelativeLayout>
+        <RelativeLayout
+            android:padding="1dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/illumination_seekbar2_txt"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Intensidad:"/>
             <SeekBar
                 android:id="@+id/illumination_seekbar2"
+                android:layout_toEndOf="@id/illumination_seekbar2_txt"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
                 android:max="255"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sensor Ambiental:" />
             <CheckBox
                 android:id="@+id/illumination_checkbox2"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -142,95 +173,49 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
+                android:padding="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
                     android:id="@+id/illumination_description3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:text="Descripción"/>
+                    android:text="RGB1"/>
 
                 <Switch
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentEnd="true"
                     android:id="@+id/illumination_switch3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+            </RelativeLayout>
 
-                <View
-                    android:id="@+id/illumination_color3"
-                    android:layout_marginStart="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="#000000"/>
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:padding="1dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <TextView
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R:"/>
-                <SeekBar
-                    android:id="@+id/illumination_R3"
-                    android:max="255"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="G:"/>
-                <SeekBar
-                    android:id="@+id/illumination_G3"
-                    android:max="255"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="B:"/>
-                <SeekBar
-                    android:id="@+id/illumination_B3"
-                    android:max="255"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sensor Ambiental:" />
-                <CheckBox
-                    android:visibility="gone"
-                    android:id="@+id/illumination_checkbox3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
+                android:layout_marginEnd="20dp"
+                android:text="Color"/>
+            <View
+                android:id="@+id/illumination_color3"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="10dp"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:background="#000000"/>
+            </RelativeLayout>
         </LinearLayout>
 
 
@@ -248,103 +233,57 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/illumination_description4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:text="Descripción"/>
 
-                <Switch
-                    android:id="@+id/illumination_switch4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <View
-                    android:background="#000000"
-                    android:id="@+id/illumination_color4"
-                    android:layout_marginStart="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R:"/>
-                <SeekBar
-                    android:id="@+id/illumination_R4"
-                    android:max="255"
+                <RelativeLayout
+                    android:padding="1dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="G:"/>
-                <SeekBar
-                    android:id="@+id/illumination_G4"
-                    android:max="255"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/illumination_description4"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:text="RGB2"/>
+
+                    <Switch
+                        android:id="@+id/illumination_switch4"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:padding="1dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="B:"/>
-                <SeekBar
-                    android:id="@+id/illumination_B4"
-                    android:max="255"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:text="Color"/>
+                    <View
+                        android:background="#000000"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/illumination_color4"
+                        android:layout_marginStart="10dp"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"/>
+                </RelativeLayout>
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sensor Ambiental:" />
-                <CheckBox
-                    android:visibility="gone"
-                    android:id="@+id/illumination_checkbox4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
 
         </LinearLayout>
 
 
-
-
-    <Button
-        android:id="@+id/illumination_save_button"
-        android:text="Guardar cambios"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
     </LinearLayout>
     </ScrollView>
 </LinearLayout>

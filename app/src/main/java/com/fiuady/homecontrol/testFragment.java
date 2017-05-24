@@ -117,9 +117,6 @@ public class testFragment extends Fragment {
                         sendMessageFlag=false;
                     }
 
-
-
-
                     publishProgress(readMessage);
                     //Log.d("Recibido= ", params[0].readLine());
 

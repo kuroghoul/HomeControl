@@ -28,10 +28,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -43,6 +45,9 @@ import com.fiuady.homecontrol.db.ProfileDevice;
 import com.fiuady.homecontrol.db.User;
 import com.fiuady.homecontrol.db.UserProfile;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -53,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
     protected UserProfile currentUserProfile;
     protected ArrayList<ProfileDevice> profileDevices;
     protected Inventory inventory;
+    private boolean sendMessageFlag;
+    private JSONObject jObjIn;
+    private JSONObject jObjOut;
 
     public ArrayList<ProfileDevice> getProfileDevices() {
         return profileDevices;
@@ -167,6 +175,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void sendJson()
+    {
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -191,4 +204,18 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+
+
+
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
+
 }
