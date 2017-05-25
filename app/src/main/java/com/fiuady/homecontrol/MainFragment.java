@@ -15,7 +15,7 @@ public class MainFragment extends Fragment {
     private ImageButton illuminationBtn;
     private ImageButton doorsWindowsBtn;
     private ImageButton alarmBtn;
-    private ImageButton movementBtn;
+
     private ImageButton temperatureBtn;
     private ImageButton profileBtn;
 
@@ -36,7 +36,6 @@ public class MainFragment extends Fragment {
         illuminationBtn = (ImageButton)view.findViewById(R.id.illumination_btn);
         doorsWindowsBtn = (ImageButton)view.findViewById(R.id.doors_and_windows_btn);
         alarmBtn = (ImageButton)view.findViewById(R.id.alarm_btn);
-        movementBtn = (ImageButton)view.findViewById(R.id.movement_detector_btn);
         temperatureBtn = (ImageButton)view.findViewById(R.id.temperature_control_btn);
         profileBtn = (ImageButton)view.findViewById(R.id.my_profile_btn);
 
@@ -65,16 +64,13 @@ public class MainFragment extends Fragment {
                 ft.replace(R.id.fragment_container, doorsFragment).addToBackStack(null).commit();
             }
         });
-        movementBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         temperatureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                TemperatureFragment temperatureFragment = new TemperatureFragment();
+                ft.replace(R.id.fragment_container, temperatureFragment).addToBackStack(null).commit();
             }
         });
         profileBtn.setOnClickListener(new View.OnClickListener() {

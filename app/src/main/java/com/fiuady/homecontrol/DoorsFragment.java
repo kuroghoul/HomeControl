@@ -19,6 +19,7 @@ import com.fiuady.homecontrol.db.ProfileDevice;
 import com.fiuady.homecontrol.db.User;
 import com.fiuady.homecontrol.db.UserProfile;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -28,6 +29,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 /**
  * Created by Kuro on 22/05/2017.
@@ -58,7 +60,9 @@ public class DoorsFragment extends Fragment {
 
     private TextView doorMainTxt;
     private TextView door2Txt;
-
+    private OutputStream btOS;
+    private BufferedWriter btbw;
+    ArrayList<ProfileDevice> devices;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,8 +80,17 @@ public class DoorsFragment extends Fragment {
         if(btSocket!=null) {
             btThread = new BtBackgroundTask(btSocket);
             btThread.execute();
-        }
+            try {
 
+                btOS = btSocket.getOutputStream();
+                btbw = new BufferedWriter(new OutputStreamWriter(btOS));
+
+            }catch (IOException e){
+
+
+            }
+        }
+        devices = mainActivity.getProfileDevices();
 
 
     }
@@ -123,6 +136,12 @@ public class DoorsFragment extends Fragment {
 
                         mainActivity.hideKeyboard(mainActivity,v);
                         //----------------------PONER FUNCION PARA ABRIR PUERTA-----------------------------//
+                        try {
+                            JSONObject jO = new JSONObject();
+                            jO.put("door1status1", true);
+                            sendJSON(jO);
+
+                        }catch (JSONException o){}
                     }
                     else
                     {
@@ -134,6 +153,12 @@ public class DoorsFragment extends Fragment {
                 {
                     doorMainBtn.setBackgroundResource(R.drawable.hardlocked);
                     doorMain.setStatus1(false);
+                    try {
+                        JSONObject jO = new JSONObject();
+                        jO.put("door1status1", false);
+                        sendJSON(jO);
+
+                    }catch (JSONException o){}
 
                 }
 
@@ -146,25 +171,45 @@ public class DoorsFragment extends Fragment {
         door2Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(door2.getStatus1())
-                {
+                if (door2.getStatus1()) {
                     door2.setStatus1(false);
                     door2Btn.setBackgroundResource(R.drawable.locked);
-                }
-                else
-                {
+                    try {
+                        JSONObject jO = new JSONObject();
+                        jO.put("door2status1", false);
+                        sendJSON(jO);
+
+                    }catch (JSONException o){}
+                } else {
                     door2.setStatus1(true);
                     door2Btn.setBackgroundResource(R.drawable.unlocked);
+
+                    try {
+                        JSONObject jO = new JSONObject();
+                        jO.put("door2status1", true);
+                        sendJSON(jO);
+
+                    }catch (JSONException o){}
                 }
-                inventory.saveProfileDevice(door2);
-            }
-        });
+                    sendMessageFlag=true;
+                    inventory.saveProfileDevice(door2);
+                }
+            });
 
     }
 
+    void sendJSON (JSONObject jsonObject)
+    {
+        if ((btSocket != null) && (btSocket.isConnected())) {
+            try {
+                btbw.write(jsonObject.toString());
+                btbw.flush();
+            } catch (IOException o) {
+            }
+        }
+    }
 
-
-    private class BtBackgroundTask extends AsyncTask<BluetoothSocket, String, Void> {
+    private class BtBackgroundTask extends AsyncTask<JSONObject, String, Void> {
         private InputStream mmInStream = null;
         private OutputStream mmOutStream = null;
         BufferedReader br;
@@ -178,6 +223,7 @@ public class DoorsFragment extends Fragment {
                 br = new BufferedReader(new InputStreamReader(mmInStream));
                 bw = new BufferedWriter(new OutputStreamWriter(mmOutStream));
 
+
             }catch (IOException e){
 
 
@@ -185,18 +231,23 @@ public class DoorsFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(BluetoothSocket... params) {
+        protected Void doInBackground(JSONObject... params) {
             try {
-                Log.d("Primera ejecucion BT", "true");
                 while (!isCancelled()) {
                     String readMessage = br.readLine();
-                    if(sendMessageFlag)
-                    {
-                        bw.flush();
-                        bw.write(jObj.toString());
-                        bw.flush();
-                        sendMessageFlag=false;
-                    }
+                    //if(sendMessageFlag)
+                    //{
+
+                    //for(JSONObject jsonObject : jsonObjects)
+                    //{
+                    //    mmOutStream.flush();
+                    //    mmOutStream.write((jsonObject.toString()+"\r").getBytes());
+                    //}
+                    //    bw.flush();
+                    //    bw.write(((JSONObject)params[0]).toString());
+
+                    //    sendMessageFlag=false;
+                    //}
                     publishProgress(readMessage);
                 }
             } catch (IOException e) {
@@ -209,7 +260,6 @@ public class DoorsFragment extends Fragment {
         protected void onProgressUpdate(String... values) {
 
 
-
         }
     }
 
@@ -218,5 +268,14 @@ public class DoorsFragment extends Fragment {
     {
         inventory.saveProfileDevice(doorMain);
         inventory.saveProfileDevice(door2);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(btThread!=null)
+        {
+            btThread.cancel(true);
+        }
     }
 }

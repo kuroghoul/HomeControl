@@ -16,12 +16,14 @@ import android.widget.TextView;
 
 import com.fiuady.homecontrol.db.Inventory;
 
+import io.apptik.widget.MultiSlider;
+
 public class LoginFragment extends Fragment {
 
 
     private Button signupButton;
     private Button signinButton;
-    private Button testButton;
+    //private Button testButton;
 
     private EditText usertxt;
     private EditText passwordtxt;
@@ -37,11 +39,13 @@ public class LoginFragment extends Fragment {
     private ConnectFragment connectFragment;
 
     private MainActivity mainActivity;
+
     //testFragment mainFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         mainActivity = (MainActivity)getActivity();
         inventory = new Inventory(getActivity());
@@ -68,11 +72,10 @@ public class LoginFragment extends Fragment {
 
         signinButton = (Button)view.findViewById(R.id.signin_button);
         signupButton = (Button)view.findViewById(R.id.signup_button);
-        testButton = (Button)view.findViewById(R.id.testButton);
+        //testButton = (Button)view.findViewById(R.id.testButton);
         signinAttempt = (TextView)view.findViewById(R.id.signin_attempt_txt);
         usertxt = (EditText)view.findViewById(R.id.user_edittext);
         passwordtxt = (EditText)view.findViewById(R.id.password_edittext);
-
 
 
         signinButton.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +104,7 @@ public class LoginFragment extends Fragment {
                         signinAttempt.setText("Inicio de sesión exitoso");
                         mainActivity.hideKeyboard(getActivity(),v);
                         mainActivity.generateDevices();
+
                         if(mainActivity.getConnectedSocket()==null)
                         {
                             NewBt newBt = new NewBt();
@@ -130,17 +134,17 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                testFragment testfragmento = new testFragment();
-
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, testfragmento);
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-        });
+        //testButton.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //        MainFragment mainFragment = new MainFragment();
+//
+        //        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        //        ft.replace(R.id.fragment_container, mainFragment);
+        //        ft.addToBackStack(null);
+        //        ft.commit();
+        //    }
+        //});
     }
 
 

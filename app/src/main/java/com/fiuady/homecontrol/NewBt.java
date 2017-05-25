@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -186,9 +187,11 @@ public class NewBt extends Fragment{
                     ft.replace(R.id.fragment_container, mainFragment, "mainFragment");
                     ft.addToBackStack("login_mainFragment_TAG");
                     ft.commit();
+                    Toast.makeText(getActivity(), "Conexión exitosa", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
 
 // Register for broadcasts when bluetooth device state changes
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
@@ -239,8 +242,18 @@ public class NewBt extends Fragment{
                                     if(mainactivity.attemptConnection(device))
                                     {
 
-                                            connectedSocket = mainactivity.getConnectedSocket();
-                                            appendStateText("[Estado] Conexión exitosa.");
+                                        connectedSocket = mainactivity.getConnectedSocket();
+                                        appendStateText("[Estado] Conexión exitosa.");
+                                        if (connectedSocket!=null)
+                                        {
+                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                            MainFragment mainFragment = new MainFragment();
+                                            ft.replace(R.id.fragment_container, mainFragment, "mainFragment");
+                                            ft.addToBackStack("login_mainFragment_TAG");
+                                            ft.commit();
+                                            Toast.makeText(getActivity(), "Conexión exitosa", Toast.LENGTH_LONG).show();
+                                        }
+
 
 
 
@@ -248,6 +261,7 @@ public class NewBt extends Fragment{
                                     else
                                     {
                                         appendStateText("[Error] No se pudo establecer conexión!");
+                                        Toast.makeText(getActivity(), "No se pudo establecer conexión", Toast.LENGTH_LONG).show();
                                     }
                                     //***********************************************************************
                                     break;
